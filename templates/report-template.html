@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Report — Angavu Metrics</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ===== Angavu Metrics — Report / Evaluation Template ===== */
+    :root {
+      --navy:       #1A365D;
+      --navy-dark:  #0F2240;
+      --teal:       #2A9D8F;
+      --teal-dark:  #1E7A6F;
+      --teal-bg:    rgba(42,157,143,0.06);
+      --gold:       #D4A843;
+      --gold-light: #E2C06A;
+      --ink:        #2D3748;
+      --ink-light:  #4A5568;
+      --gray:       #A0AEC0;
+      --gray-light: #CBD5E0;
+      --bg:         #F9F7F4;
+      --white:      #FFFFFF;
+      --font-h: 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+      --font-b: 'Source Sans 3', 'Source Sans Pro', 'Segoe UI', sans-serif;
+    }
+
+    @page {
+      size: A4;
+      margin: 2cm 2.5cm;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: var(--font-b);
+      font-size: 11pt;
+      line-height: 1.7;
+      color: var(--ink);
+      background: var(--white);
+    }
+
+    /* ---- Cover Page ---- */
+    .cover {
+      page-break-after: always;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 4rem 3rem;
+      background: var(--white);
+      position: relative;
+    }
+    .cover__top-bar {
+      height: 6px;
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      background: linear-gradient(90deg, var(--navy) 0%, var(--teal) 50%, var(--gold) 100%);
+    }
+    .cover__logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .cover__logo-name {
+      font-family: var(--font-h);
+      font-weight: 800;
+      font-size: 1.5rem;
+      color: var(--navy);
+      letter-spacing: 0.02em;
+    }
+    .cover__logo-sub {
+      font-family: var(--font-h);
+      font-weight: 400;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gray);
+    }
+    .cover__body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .cover__label {
+      font-family: var(--font-h);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 1rem;
+    }
+    .cover__title {
+      font-family: var(--font-h);
+      font-size: 2.75rem;
+      font-weight: 800;
+      line-height: 1.15;
+      color: var(--navy);
+      margin-bottom: 1rem;
+      max-width: 600px;
+    }
+    .cover__subtitle {
+      font-size: 1.2rem;
+      line-height: 1.6;
+      color: var(--ink-light);
+      max-width: 500px;
+      margin-bottom: 3rem;
+    }
+    .cover__meta {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 1.5rem;
+      padding-top: 2rem;
+      border-top: 2px solid var(--teal);
+    }
+    .cover__meta-item label {
+      display: block;
+      font-family: var(--font-h);
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 0.2rem;
+    }
+    .cover__meta-item span {
+      font-size: 0.9rem;
+      color: var(--ink);
+    }
+    .cover__disclaimer {
+      margin-top: 3rem;
+      padding: 1rem;
+      background: var(--bg);
+      border-radius: 6px;
+      font-size: 0.8rem;
+      color: var(--ink-light);
+      line-height: 1.5;
+    }
+
+    /* ---- Running Header ---- */
+    .page-header-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 0.6rem;
+      border-bottom: 2px solid var(--teal);
+      margin-bottom: 2rem;
+    }
+    .page-header-bar__brand {
+      font-family: var(--font-h);
+      font-weight: 700;
+      font-size: 0.8rem;
+      color: var(--navy);
+    }
+    .page-header-bar__tag {
+      font-size: 0.7rem;
+      color: var(--gray);
+      font-family: var(--font-h);
+    }
+
+    /* ---- Typography ---- */
+    h1, h2, h3, h4, h5 {
+      font-family: var(--font-h);
+      color: var(--navy);
+      line-height: 1.3;
+    }
+    h1 { font-size: 1.75rem; margin-bottom: 1rem; }
+    h2 {
+      font-size: 1.35rem;
+      margin: 2.5rem 0 0.75rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 2px solid var(--teal);
+    }
+    h3 {
+      font-size: 1.05rem;
+      margin: 1.5rem 0 0.5rem;
+      color: var(--teal-dark);
+    }
+    h4 {
+      font-size: 0.95rem;
+      margin: 1.25rem 0 0.4rem;
+    }
+
+    p { margin-bottom: 0.75rem; max-width: 72ch; }
+
+    ul, ol {
+      margin: 0.5rem 0 1rem 1.5rem;
+    }
+    li {
+      margin-bottom: 0.35rem;
+    }
+
+    strong { color: var(--navy); }
+
+    /* ---- Tables ---- */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0 1.5rem;
+      font-size: 0.9rem;
+    }
+    th {
+      background-color: var(--navy);
+      color: var(--white);
+      font-family: var(--font-h);
+      font-weight: 600;
+      font-size: 0.8rem;
+      letter-spacing: 0.03em;
+      text-align: left;
+      padding: 0.6rem 0.75rem;
+    }
+    td {
+      padding: 0.5rem 0.75rem;
+      border-bottom: 1px solid var(--gray-light);
+      vertical-align: top;
+    }
+    tr:nth-child(even) td {
+      background-color: var(--bg);
+    }
+    tr:last-child td {
+      border-bottom: 2px solid var(--teal);
+    }
+
+    /* ---- Callout Boxes ---- */
+    .callout {
+      background: var(--bg);
+      border-left: 4px solid var(--teal);
+      padding: 1rem 1.25rem;
+      margin: 1.5rem 0;
+      border-radius: 0 6px 6px 0;
+    }
+    .callout p { margin-bottom: 0.25rem; }
+    .callout--gold { border-left-color: var(--gold); }
+    .callout--navy { border-left-color: var(--navy); background: rgba(26,54,93,0.04); }
+
+    /* Key Finding Box */
+    .finding {
+      background: var(--teal-bg);
+      border: 1px solid rgba(42,157,143,0.2);
+      border-radius: 8px;
+      padding: 1.25rem 1.5rem;
+      margin: 1.5rem 0;
+    }
+    .finding__label {
+      font-family: var(--font-h);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 0.5rem;
+    }
+    .finding p { margin-bottom: 0.25rem; }
+
+    /* Recommendation Box */
+    .recommendation {
+      background: rgba(212,168,67,0.06);
+      border: 1px solid rgba(212,168,67,0.2);
+      border-radius: 8px;
+      padding: 1.25rem 1.5rem;
+      margin: 1.5rem 0;
+    }
+    .recommendation__label {
+      font-family: var(--font-h);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.5rem;
+    }
+    .recommendation p { margin-bottom: 0.25rem; }
+
+    /* ---- Figure / Chart Placeholder ---- */
+    .figure {
+      margin: 1.5rem 0;
+      text-align: center;
+    }
+    .figure__placeholder {
+      background: var(--bg);
+      border: 1px dashed var(--gray-light);
+      border-radius: 8px;
+      padding: 3rem 2rem;
+      color: var(--gray);
+      font-size: 0.9rem;
+    }
+    .figure__caption {
+      font-size: 0.8rem;
+      color: var(--ink-light);
+      margin-top: 0.5rem;
+      font-style: italic;
+    }
+
+    /* ---- Highlight ---- */
+    .highlight { color: var(--teal-dark); font-weight: 600; }
+
+    /* ---- Section Break ---- */
+    .section-break { page-break-before: always; }
+
+    /* ---- Footer ---- */
+    .page-footer-bar {
+      border-top: 1px solid var(--gray-light);
+      padding-top: 0.75rem;
+      margin-top: 3rem;
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.7rem;
+      color: var(--gray);
+    }
+
+    /* ---- Print ---- */
+    @media print {
+      body { font-size: 10.5pt; }
+      .cover { min-height: auto; height: 100vh; }
+      h2, h3 { page-break-after: avoid; }
+      table, .callout, .finding, .recommendation, .figure { page-break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ============================================================
+     COVER PAGE
+     ============================================================ -->
+<div class="cover">
+  <div class="cover__top-bar"></div>
+
+  <div class="cover__logo">
+    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="6" y="28" width="5" height="8" rx="1" fill="#2A9D8F"/>
+      <rect x="13" y="22" width="5" height="14" rx="1" fill="#2A9D8F"/>
+      <rect x="20" y="16" width="5" height="20" rx="1" fill="#1A365D"/>
+      <rect x="27" y="10" width="5" height="26" rx="1" fill="#1A365D"/>
+      <path d="M4 8 Q20 0 36 8" stroke="#D4A843" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <circle cx="20" cy="4" r="2.5" fill="#D4A843"/>
+    </svg>
+    <div>
+      <div class="cover__logo-name">ANGAVU</div>
+      <div class="cover__logo-sub">Metrics</div>
+    </div>
+  </div>
+
+  <div class="cover__body">
+    <div class="cover__label">[Evaluation Report / Baseline Study / Learning Brief]</div>
+    <h1 class="cover__title">[Report Title: e.g., Endline Evaluation of the Community Health Resilience Programme]</h1>
+    <p class="cover__subtitle">[Programme / Client Name — Geographic Scope]</p>
+  </div>
+
+  <div class="cover__meta">
+    <div class="cover__meta-item">
+      <label>Prepared For</label>
+      <span>[Client / Organisation Name]</span>
+    </div>
+    <div class="cover__meta-item">
+      <label>Prepared By</label>
+      <span>Angavu Metrics</span>
+    </div>
+    <div class="cover__meta-item">
+      <label>Date</label>
+      <span>[Month YYYY]</span>
+    </div>
+    <div class="cover__meta-item">
+      <label>Report Version</label>
+      <span>[Draft / Final]</span>
+    </div>
+    <div class="cover__meta-item">
+      <label>Lead Author</label>
+      <span>[Name, Title]</span>
+    </div>
+    <div class="cover__meta-item">
+      <label>Quality Reviewer</label>
+      <span>[Name, Title]</span>
+    </div>
+  </div>
+
+  <div class="cover__disclaimer">
+    <strong>Disclaimer:</strong> This report was commissioned by [Client Name] and prepared by Angavu Metrics. The views expressed in this report are those of the evaluation team and do not necessarily reflect the views of the commissioning organisation or its partners.
+  </div>
+</div>
+
+<!-- ============================================================
+     TABLE OF CONTENTS
+     ============================================================ -->
+<div class="section-break">
+  <div class="page-header-bar">
+    <span class="page-header-bar__brand">ANGAVU Metrics</span>
+    <span class="page-header-bar__tag">[Short Report Title]</span>
+  </div>
+
+  <h2 style="border-bottom: none; margin-top: 0;">Table of Contents</h2>
+  <ol>
+    <li>Executive Summary</li>
+    <li>Introduction and Background</li>
+    <li>Evaluation Purpose, Scope, and Questions</li>
+    <li>Methodology</li>
+    <li>Findings
+      <ol type="a" style="margin-top: 0.25rem;">
+        <li>Relevance</li>
+        <li>Effectiveness</li>
+        <li>Efficiency</li>
+        <li>Impact</li>
+        <li>Sustainability</li>
+      </ol>
+    </li>
+    <li>Conclusions</li>
+    <li>Recommendations</li>
+    <li>Lessons Learned</li>
+    <li>Annexes</li>
+  </ol>
+
+  <h3 style="margin-top: 2rem;">List of Abbreviations</h3>
+  <table>
+    <tbody>
+      <tr><td style="width: 120px;"><strong>CLA</strong></td><td>Collaborating, Learning, and Adapting</td></tr>
+      <tr><td><strong>FGD</strong></td><td>Focus Group Discussion</td></tr>
+      <tr><td><strong>KII</strong></td><td>Key Informant Interview</td></tr>
+      <tr><td><strong>M&E</strong></td><td>Monitoring and Evaluation</td></tr>
+      <tr><td><strong>MEAL</strong></td><td>Monitoring, Evaluation, Accountability and Learning</td></tr>
+      <tr><td><strong>OECD-DAC</strong></td><td>Organisation for Economic Co-operation and Development — Development Assistance Committee</td></tr>
+      <tr><td><strong>ToC</strong></td><td>Theory of Change</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ============================================================
+     1. EXECUTIVE SUMMARY
+     ============================================================ -->
+<div class="section-break">
+  <div class="page-header-bar">
+    <span class="page-header-bar__brand">ANGAVU Metrics</span>
+    <span class="page-header-bar__tag">[Short Report Title]</span>
+  </div>
+
+  <h2>1. Executive Summary</h2>
+
+  <h3>Background</h3>
+  <p>[1-2 sentences on the programme and its objectives.]</p>
+
+  <h3>Evaluation Purpose and Methodology</h3>
+  <p>[1-2 sentences on the evaluation's purpose, design, and methods.]</p>
+
+  <h3>Key Findings</h3>
+
+  <div class="finding">
+    <div class="finding__label">Key Finding 1</div>
+    <p>[Concise statement of the finding — 1-2 sentences.]</p>
+  </div>
+
+  <div class="finding">
+    <div class="finding__label">Key Finding 2</div>
+    <p>[Concise statement of the finding.]</p>
+  </div>
+
+  <div class="finding">
+    <div class="finding__label">Key Finding 3</div>
+    <p>[Concise statement of the finding.]</p>
+  </div>
+
+  <h3>Key Recommendations</h3>
+
+  <div class="recommendation">
+    <div class="recommendation__label">Recommendation 1</div>
+    <p>[Actionable recommendation — 1-2 sentences.]</p>
+  </div>
+
+  <div class="recommendation">
+    <div class="recommendation__label">Recommendation 2</div>
+    <p>[Actionable recommendation.]</p>
+  </div>
+</div>
+
+<!-- ============================================================
+     2. INTRODUCTION AND BACKGROUND
+     ============================================================ -->
+<div class="section-break">
+  <div class="page-header-bar">
+    <span class="page-header-bar__brand">ANGAVU Metrics</span>
+    <span class="page-header-bar__tag">[Short Report Title]</span>
+  </div>
+
+  <h2>2. Introduction and Background</h2>
+
+  <h3>2.1 Programme Description</h3>
+  <p>[Describe the programme: objectives, target beneficiaries, geographic scope, implementing partners, timeframe, and budget.]</p>
+
+  <h3>2.2 Theory of Change</h3>
+  <p>[Summarise the programme's Theory of Change, or include a diagram.]</p>
+
+  <div class="figure">
+    <div class="figure__placeholder">[Insert Theory of Change diagram here]</div>
+    <div class="figure__caption">Figure 1: Programme Theory of Change</div>
+  </div>
+
+  <h3>2.3 Context</h3>
+  <p>[Provide relevant contextual information — political, economic, social factors that affect the programme and its outcomes.]</p>
+</div>
+
+<!-- ============================================================
+     3. EVALUATION PURPOSE, SCOPE, AND QUESTIONS
+     ============================================================ -->
+<div class="section-break">
+  <div class="page-header-bar">
+    <span class="page-header-bar__brand">ANGAVU Metrics</span>
+    <span class="page-header-bar__tag">[Short Report Title]</span>
+  </div>
+
+  <h2>3. Evaluation Purpose, Scope, and Questions</h2>
+
+  <h3>3.1 Purpose</h3>
+  <p>[State the evaluation's purpose: accountability, learning, decision-making, or a combination.]</p>
+
+  <h3>3.2 Scope</h3>
+  <p>[Geographic scope, time period covered, thematic areas assessed.]</p>
+
+  <h3>3.3 Evaluation Questions</h3>
+  <p>The evaluation was guided by the following questions, structured around the OECD-DAC criteria:</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Criterion</th>
+        <th>Evaluation Question</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Relevance</strong></td>
+        <td>[Question]</td>
+      </tr>
+      <tr>
+        <td><strong>Effectiveness</strong></td>
+        <td>[Question]</td>
+      </tr>
+      <tr>
+        <td><strong>Efficiency</strong></td>
+        <td>[Question]</td>
+      </tr>
+      <tr>
+        <td><strong>Impact</strong></td>
+        <td>[Question]</td>
+      </tr>
+      <tr>
+        <td><strong>Sustainability</strong></td>
+        <td>[Question]</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ============================================================
+     4. METHODOLOGY
+     ============================================================ -->
+<div class="section-break">
+  <div class="page-header-bar">
+    <span class="page-header-bar__brand">ANGAVU Metrics</span>
+    <span class="page-header-bar__tag">[Short Report Title]</span>
+  </div>
+
+  <h2>4. Methodology</h2>
+
+  <h3>4.1 Evaluation Design</h3>
+  <p>[Describe the overall evaluation design and rationale.]</p>
+
+  <h3>4.2 Data Collection Methods</h3>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Method</th>
+        <th>Target Group</th>
+        <th>Sample</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Household survey</td>
+        <td>[Target]</td>
+        <td>n = [XXX]</td>
+      </tr>
+      <tr>
+        <td>Key informant interviews</td>
+        <td>[Target]</td>
+        <td>n = [XX]</td>
+      </tr>
+      <tr>
+        <td>Focus group discussions</td>
+        <td>[Target]</td>
+        <td>n = [XX]</td>
+      </tr>
+      <tr>
+        <td>Document / secondary data review</td>
+        <td>[Scope]</td>
+        <td>—</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>4.3 Sampling</h3>
+  <p>[Explain sampling strategy, frame, and rationale.]</p>
+
+  <h3>4.4 Data Analysis</h3>
+  <p>[Quantitative: descriptive stats, regression, etc. Qualitative: thematic analysis, framework analysis. Triangulation approach.]</p>
+
+  <h3>4.5 Ethical Considerations</h3>
+  <p>[Informed consent, confidentiality, data protection, do-no-harm, IRB/NACOSTI approval if applicable.]</p>
+
+  <h3>4.6 Limitations</h3>
+  <p>[Be transparent about limitations and how they were mitigated.]</p>
+</div>
+
+<!-- ============================================================
+     5. FINDINGS
+     ============================================================ -->
+<div class="section-break">
+  <div class="page-header-bar">
+    <span class="page-header-bar__brand">ANGAVU Metrics</span>
+    <span class="page-header-bar__tag">[Short Report Title]</span>
+  </div>
+
+  <h2>5. Findings</h2>
+
+  <h3>5.1 Relevance</h3>
+  <p>[Present findings related to relevance of the programme to target populations and national priorities.]</p>
+
+  <div class="finding">
+    <div class="finding__label">Finding — Relevance</div>
+    <p>[Key finding statement.]</p>
+  </div>
+
+  <h3>5.2 Effectiveness</h3>
+  <p>[Analyse the extent to which objectives were achieved, with evidence.]</p>
+
+  <div class="figure">
+    <div class="figure__placeholder">[Insert chart: e.g., indicator achievement against targets]</div>
+    <div class="figure__caption">Figure 2: Programme performance against output targets</div>
+  </div>
+
+  <div class="finding">
+    <div class="finding__label">Finding — Effectiveness</div>
+    <p>[Key finding statement with supporting data.]</p>
+  </div>
+
+  <h3>5.3 Efficiency</h3>
+  <p>[Assess resource use, timeliness, and cost-effectiveness.]</p>
+
+  <h3>5.4 Impact</h3>
+  <p>[Present evidence on higher-level outcomes and changes attributable to the programme.]</p>
+
+  <div class="finding">
+    <div class="finding__label">Finding — Impact</div>
+    <p>[Key finding statement.]</p>
+  </div>
+
+  <h3>5.5 Sustainability</h3>
+  <p>[Assess likelihood of benefits continuing beyond the programme period.]</p>
+</div>
+
+<!-- ============================================================
+     6. CONCLUSIONS
+     ============================================================ -->
+<div class="section-break">
+  <div class="page-header-bar">
+    <span class="page-header-bar__brand">ANGAVU Metrics</span>
+    <span class="page-header-bar__tag">[Short Report Title]</span>
+  </div>
+
+  <h2>6. Conclusions</h2>
+
+  <p>[Synthesise the findings into 4-6 overarching conclusions. Each should flow directly from the evidence presented.]</p>
+
+  <div class="callout--navy callout">
+    <p><strong>Conclusion 1:</strong> [Statement]</p>
+  </div>
+
+  <div class="callout--navy callout">
+    <p><strong>Conclusion 2:</strong> [Statement]</p>
+  </div>
+
+  <div class="callout--navy callout">
+    <p><strong>Conclusion 3:</strong> [Statement]</p>
+  </div>
+</div>
+
+<!-- ============================================================
+     7. RECOMMENDATIONS
+     ============================================================ -->
+<div class="section-break">
+  <div class="page-header-bar">
+    <span class="page-header-bar__brand">ANGAVU Metrics</span>
+    <span class="page-header-bar__tag">[Short Report Title]</span>
+  </div>
+
+  <h2>7. Recommendations</h2>
+
+  <p>The following recommendations are based on the evaluation findings and are directed at the relevant stakeholders.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Recommendation</th>
+        <th>Directed To</th>
+        <th>Priority</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>[Actionable recommendation with clear rationale]</td>
+        <td>[Programme team / Donor / Government]</td>
+        <td>High</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>[Recommendation]</td>
+        <td>[Target]</td>
+        <td>High</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>[Recommendation]</td>
+        <td>[Target]</td>
+        <td>Medium</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>[Recommendation]</td>
+        <td>[Target]</td>
+        <td>Medium</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ============================================================
+     8. LESSONS LEARNED
+     ============================================================ -->
+<div class="section-break">
+  <div class="page-header-bar">
+    <span class="page-header-bar__brand">ANGAVU Metrics</span>
+    <span class="page-header-bar__tag">[Short Report Title]</span>
+  </div>
+
+  <h2>8. Lessons Learned</h2>
+
+  <div class="callout callout--gold">
+    <p><strong>Lesson 1:</strong> [What was learned, why it matters, and how it can inform future programming.]</p>
+  </div>
+
+  <div class="callout callout--gold">
+    <p><strong>Lesson 2:</strong> [Lesson learned.]</p>
+  </div>
+
+  <div class="callout callout--gold">
+    <p><strong>Lesson 3:</strong> [Lesson learned.]</p>
+  </div>
+</div>
+
+<!-- ============================================================
+     9. ANNEXES
+     ============================================================ -->
+<div class="section-break">
+  <div class="page-header-bar">
+    <span class="page-header-bar__brand">ANGAVU Metrics</span>
+    <span class="page-header-bar__tag">[Short Report Title]</span>
+  </div>
+
+  <h2>9. Annexes</h2>
+
+  <h3>Annex A: Terms of Reference</h3>
+  <p>[Insert or reference the original ToR.]</p>
+
+  <h3>Annex B: Evaluation Matrix</h3>
+  <p>[Insert the full evaluation matrix: questions, sub-questions, indicators, data sources, methods.]</p>
+
+  <h3>Annex C: Data Collection Tools</h3>
+  <p>[List or attach survey instruments, interview guides, FGD guides.]</p>
+
+  <h3>Annex D: List of Key Informants</h3>
+  <p>[List of interviewees by role/organisation — anonymised where appropriate.]</p>
+
+  <h3>Annex E: Additional Data Tables</h3>
+  <p>[Supplementary quantitative tables not included in the main body.]</p>
+</div>
+
+<!-- ============================================================
+     BACK PAGE
+     ============================================================ -->
+<div class="section-break" style="display: flex; flex-direction: column; justify-content: flex-end; min-height: 60vh;">
+  <div class="page-footer-bar" style="border-top: 2px solid var(--teal); padding-top: 1.5rem;">
+    <div>
+      <strong style="color: var(--navy); font-family: var(--font-h);">ANGAVU Metrics</strong><br>
+      Clarity. Evidence. Impact.
+    </div>
+    <div style="text-align: right;">
+      info@angavumetrics.com<br>
+      Nairobi, Kenya<br>
+      Registered with the Registrar of Companies &amp; NGO Coordination Board, Kenya
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

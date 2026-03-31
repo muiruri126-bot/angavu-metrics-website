@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Technical Proposal — Angavu Metrics</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ===== Angavu Metrics — Proposal Template ===== */
+    :root {
+      --navy:       #1A365D;
+      --navy-dark:  #0F2240;
+      --teal:       #2A9D8F;
+      --teal-dark:  #1E7A6F;
+      --gold:       #D4A843;
+      --gold-light: #E2C06A;
+      --ink:        #2D3748;
+      --ink-light:  #4A5568;
+      --gray:       #A0AEC0;
+      --gray-light: #CBD5E0;
+      --bg:         #F9F7F4;
+      --white:      #FFFFFF;
+      --font-h: 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+      --font-b: 'Source Sans 3', 'Source Sans Pro', 'Segoe UI', sans-serif;
+    }
+
+    @page {
+      size: A4;
+      margin: 2cm 2.5cm;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: var(--font-b);
+      font-size: 11pt;
+      line-height: 1.65;
+      color: var(--ink);
+      background: var(--white);
+    }
+
+    /* ---- Cover Page ---- */
+    .cover {
+      page-break-after: always;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 4rem 3rem;
+      background: linear-gradient(160deg, var(--navy) 0%, var(--navy-dark) 100%);
+      color: var(--white);
+      position: relative;
+      overflow: hidden;
+    }
+    .cover::before {
+      content: '';
+      position: absolute;
+      top: 0; right: 0;
+      width: 40%;
+      height: 100%;
+      background: linear-gradient(180deg, rgba(42,157,143,0.15) 0%, rgba(212,168,67,0.08) 100%);
+    }
+    .cover__logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 4rem;
+      position: relative;
+      z-index: 1;
+    }
+    .cover__logo-name {
+      font-family: var(--font-h);
+      font-weight: 800;
+      font-size: 1.5rem;
+      letter-spacing: 0.02em;
+    }
+    .cover__logo-sub {
+      font-family: var(--font-h);
+      font-weight: 400;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gray);
+    }
+    .cover__label {
+      font-family: var(--font-h);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+      position: relative;
+      z-index: 1;
+    }
+    .cover__title {
+      font-family: var(--font-h);
+      font-size: 2.5rem;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 1.5rem;
+      max-width: 600px;
+      position: relative;
+      z-index: 1;
+    }
+    .cover__subtitle {
+      font-size: 1.15rem;
+      line-height: 1.6;
+      color: rgba(255,255,255,0.75);
+      max-width: 500px;
+      margin-bottom: 3rem;
+      position: relative;
+      z-index: 1;
+    }
+    .cover__meta {
+      position: relative;
+      z-index: 1;
+      border-top: 1px solid rgba(255,255,255,0.15);
+      padding-top: 2rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+    .cover__meta-item label {
+      display: block;
+      font-family: var(--font-h);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.25rem;
+    }
+    .cover__meta-item span {
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.8);
+    }
+
+    /* ---- Page Header / Footer ---- */
+    .page-header-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 0.75rem;
+      border-bottom: 2px solid var(--teal);
+      margin-bottom: 2rem;
+    }
+    .page-header-bar__brand {
+      font-family: var(--font-h);
+      font-weight: 700;
+      font-size: 0.8rem;
+      color: var(--navy);
+    }
+    .page-header-bar__tag {
+      font-size: 0.7rem;
+      color: var(--gray);
+      font-family: var(--font-h);
+    }
+
+    /* ---- Typography ---- */
+    h1, h2, h3, h4, h5 {
+      font-family: var(--font-h);
+      color: var(--navy);
+      line-height: 1.3;
+    }
+    h1 { font-size: 1.75rem; margin-bottom: 1rem; }
+    h2 {
+      font-size: 1.3rem;
+      margin: 2.5rem 0 0.75rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--teal);
+    }
+    h3 {
+      font-size: 1.05rem;
+      margin: 1.5rem 0 0.5rem;
+      color: var(--teal-dark);
+    }
+    h4 {
+      font-size: 0.95rem;
+      margin: 1rem 0 0.5rem;
+    }
+
+    p { margin-bottom: 0.75rem; max-width: 72ch; }
+
+    ul, ol {
+      margin: 0.5rem 0 1rem 1.5rem;
+    }
+    li {
+      margin-bottom: 0.35rem;
+    }
+
+    /* ---- Tables ---- */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0 1.5rem;
+      font-size: 0.9rem;
+    }
+    th {
+      background-color: var(--navy);
+      color: var(--white);
+      font-family: var(--font-h);
+      font-weight: 600;
+      font-size: 0.8rem;
+      letter-spacing: 0.03em;
+      text-align: left;
+      padding: 0.6rem 0.75rem;
+    }
+    td {
+      padding: 0.5rem 0.75rem;
+      border-bottom: 1px solid var(--gray-light);
+      vertical-align: top;
+    }
+    tr:nth-child(even) td {
+      background-color: var(--bg);
+    }
+    tr:last-child td {
+      border-bottom: 2px solid var(--teal);
+    }
+
+    /* ---- Callout Box ---- */
+    .callout {
+      background: var(--bg);
+      border-left: 4px solid var(--teal);
+      padding: 1rem 1.25rem;
+      margin: 1.5rem 0;
+      border-radius: 0 6px 6px 0;
+    }
+    .callout p { margin-bottom: 0.25rem; }
+    .callout--gold { border-left-color: var(--gold); }
+
+    /* ---- Key Highlight ---- */
+    .highlight {
+      color: var(--teal-dark);
+      font-weight: 600;
+    }
+
+    /* ---- Section Divider ---- */
+    .section-break {
+      page-break-before: always;
+    }
+
+    /* ---- Team Table ---- */
+    .team-role {
+      font-weight: 600;
+      color: var(--navy);
+    }
+
+    /* ---- Footer Bar ---- */
+    .page-footer-bar {
+      border-top: 1px solid var(--gray-light);
+      padding-top: 0.75rem;
+      margin-top: 3rem;
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.7rem;
+      color: var(--gray);
+    }
+
+    /* ---- Print ---- */
+    @media print {
+      body { font-size: 10.5pt; }
+      .cover { min-height: auto; height: 100vh; }
+      h2 { page-break-after: avoid; }
+      table, .callout { page-break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ============================================================
+     COVER PAGE
+     ============================================================ -->
+<div class="cover">
+  <div class="cover__logo">
+    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="6" y="28" width="5" height="8" rx="1" fill="#2A9D8F"/>
+      <rect x="13" y="22" width="5" height="14" rx="1" fill="#2A9D8F"/>
+      <rect x="20" y="16" width="5" height="20" rx="1" fill="#ffffff"/>
+      <rect x="27" y="10" width="5" height="26" rx="1" fill="#ffffff"/>
+      <path d="M4 8 Q20 0 36 8" stroke="#D4A843" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <circle cx="20" cy="4" r="2.5" fill="#D4A843"/>
+    </svg>
+    <div>
+      <div class="cover__logo-name">ANGAVU</div>
+      <div class="cover__logo-sub">Metrics</div>
+    </div>
+  </div>
+
+  <div class="cover__label">Technical Proposal</div>
+  <h1 class="cover__title">[Proposal Title: e.g., Impact Evaluation of the XYZ Livelihoods Programme]</h1>
+  <p class="cover__subtitle">Submitted in response to [Client / Donor Name] Request for Proposal (RFP) Ref: [Reference Number]</p>
+
+  <div class="cover__meta">
+    <div class="cover__meta-item">
+      <label>Submitted To</label>
+      <span>[Client / Organisation Name]</span>
+    </div>
+    <div class="cover__meta-item">
+      <label>Submitted By</label>
+      <span>Angavu Metrics</span>
+    </div>
+    <div class="cover__meta-item">
+      <label>Date</label>
+      <span>[DD Month YYYY]</span>
+    </div>
+    <div class="cover__meta-item">
+      <label>Contact</label>
+      <span>info@angavumetrics.com</span>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     TABLE OF CONTENTS
+     ============================================================ -->
+<div class="section-break">
+  <div class="page-header-bar">
+    <span class="page-header-bar__brand">ANGAVU Metrics</span>
+    <span class="page-header-bar__tag">Technical Proposal — [Short Title]</span>
+  </div>
+
+  <h2 style="border-bottom: none; margin-top: 0;">Table of Contents</h2>
+  <ol>
+    <li>Executive Summary</li>
+    <li>Understanding of the Assignment</li>
+    <li>Technical Approach and Methodology</li>
+    <li>Work Plan and Timeline</li>
+    <li>Team Composition and Key Personnel</li>
+    <li>Quality Assurance and Ethics</li>
+    <li>Relevant Experience</li>
+    <li>Budget Summary</li>
+    <li>Annexes</li>
+  </ol>
+</div>
+
+<!-- ============================================================
+     1. EXECUTIVE SUMMARY
+     ============================================================ -->
+<div class="section-break">
+  <div class="page-header-bar">
+    <span class="page-header-bar__brand">ANGAVU Metrics</span>
+    <span class="page-header-bar__tag">Technical Proposal — [Short Title]</span>
+  </div>
+
+  <h2>1. Executive Summary</h2>
+
+  <p>[Write a concise overview of the proposal — 3-4 paragraphs covering: what the assignment is, your understanding of its objectives, a summary of your technical approach, and why Angavu Metrics is well-positioned to deliver.]</p>
+
+  <div class="callout">
+    <p><strong>Key Deliverables:</strong></p>
+    <ul>
+      <li>[Deliverable 1 — e.g., Inception Report with refined methodology]</li>
+      <li>[Deliverable 2 — e.g., Data collection tools and sampling framework]</li>
+      <li>[Deliverable 3 — e.g., Draft evaluation report with findings]</li>
+      <li>[Deliverable 4 — e.g., Final report and policy brief]</li>
+      <li>[Deliverable 5 — e.g., Validation workshop / presentation]</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ============================================================
+     2. UNDERSTANDING OF THE ASSIGNMENT
+     ============================================================ -->
+<div class="section-break">
+  <div class="page-header-bar">
+    <span class="page-header-bar__brand">ANGAVU Metrics</span>
+    <span class="page-header-bar__tag">Technical Proposal — [Short Title]</span>
+  </div>
+
+  <h2>2. Understanding of the Assignment</h2>
+
+  <h3>2.1 Background and Context</h3>
+  <p>[Summarise the programme background, its objectives, target beneficiaries, geographic scope, and implementation status. Demonstrate understanding of the client's context.]</p>
+
+  <h3>2.2 Objectives of the Assignment</h3>
+  <p>[Restate the assignment objectives in your own words, showing that you understand what the client needs from this work.]</p>
+  <ul>
+    <li>[Objective 1]</li>
+    <li>[Objective 2]</li>
+    <li>[Objective 3]</li>
+  </ul>
+
+  <h3>2.3 Key Evaluation / Research Questions</h3>
+  <p>[List the evaluation or research questions the assignment will address. Align with the ToR but add value by refining or structuring them.]</p>
+  <ol>
+    <li>[Question 1]</li>
+    <li>[Question 2]</li>
+    <li>[Question 3]</li>
+  </ol>
+</div>
+
+<!-- ============================================================
+     3. TECHNICAL APPROACH AND METHODOLOGY
+     ============================================================ -->
+<div class="section-break">
+  <div class="page-header-bar">
+    <span class="page-header-bar__brand">ANGAVU Metrics</span>
+    <span class="page-header-bar__tag">Technical Proposal — [Short Title]</span>
+  </div>
+
+  <h2>3. Technical Approach and Methodology</h2>
+
+  <h3>3.1 Overall Approach</h3>
+  <p>[Describe the overarching evaluation / research approach — e.g., mixed-methods, theory-based, participatory, utilisation-focused. Explain why this approach fits the assignment.]</p>
+
+  <div class="callout">
+    <p><strong>Guiding Frameworks:</strong> This assignment will be guided by the <span class="highlight">OECD-DAC evaluation criteria</span>, a <span class="highlight">Theory of Change</span> approach, and <span class="highlight">adaptive management</span> principles.</p>
+  </div>
+
+  <h3>3.2 Evaluation Design</h3>
+  <p>[Detail the evaluation design — e.g., quasi-experimental, contribution analysis, before-after comparison. Include rationale.]</p>
+
+  <h3>3.3 Data Collection Methods</h3>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Method</th>
+        <th>Target Group</th>
+        <th>Sample / Scope</th>
+        <th>Purpose</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Household survey</td>
+        <td>[Target]</td>
+        <td>[n = XXX]</td>
+        <td>[Purpose]</td>
+      </tr>
+      <tr>
+        <td>Key informant interviews</td>
+        <td>[Target]</td>
+        <td>[n = XX]</td>
+        <td>[Purpose]</td>
+      </tr>
+      <tr>
+        <td>Focus group discussions</td>
+        <td>[Target]</td>
+        <td>[n = XX]</td>
+        <td>[Purpose]</td>
+      </tr>
+      <tr>
+        <td>Document review</td>
+        <td>Programme documents</td>
+        <td>[Scope]</td>
+        <td>[Purpose]</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>3.4 Sampling Strategy</h3>
+  <p>[Describe the sampling frame, sampling method (random, purposive, stratified), and sample size calculations where relevant.]</p>
+
+  <h3>3.5 Data Analysis Plan</h3>
+  <p>[Outline quantitative analysis methods (descriptive statistics, regression, difference-in-differences, etc.) and qualitative analysis methods (thematic coding, framework analysis). Mention tools: Stata, R, NVivo, etc.]</p>
+
+  <h3>3.6 Limitations and Mitigation</h3>
+  <p>[Be transparent about anticipated limitations and explain how you will mitigate them.]</p>
+</div>
+
+<!-- ============================================================
+     4. WORK PLAN AND TIMELINE
+     ============================================================ -->
+<div class="section-break">
+  <div class="page-header-bar">
+    <span class="page-header-bar__brand">ANGAVU Metrics</span>
+    <span class="page-header-bar__tag">Technical Proposal — [Short Title]</span>
+  </div>
+
+  <h2>4. Work Plan and Timeline</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Phase</th>
+        <th>Key Activities</th>
+        <th>Deliverable</th>
+        <th>Timeline</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Inception</strong></td>
+        <td>Document review, inception meetings, methodology refinement, tool development</td>
+        <td>Inception Report</td>
+        <td>Weeks 1–2</td>
+      </tr>
+      <tr>
+        <td><strong>2. Data Collection</strong></td>
+        <td>Field team training, piloting, data collection, quality assurance</td>
+        <td>Raw data & field notes</td>
+        <td>Weeks 3–6</td>
+      </tr>
+      <tr>
+        <td><strong>3. Analysis</strong></td>
+        <td>Data cleaning, quantitative and qualitative analysis, triangulation</td>
+        <td>Preliminary findings</td>
+        <td>Weeks 7–8</td>
+      </tr>
+      <tr>
+        <td><strong>4. Reporting</strong></td>
+        <td>Draft report, client review, revisions, policy brief, presentation</td>
+        <td>Final Report & Brief</td>
+        <td>Weeks 9–12</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ============================================================
+     5. TEAM COMPOSITION
+     ============================================================ -->
+<div class="section-break">
+  <div class="page-header-bar">
+    <span class="page-header-bar__brand">ANGAVU Metrics</span>
+    <span class="page-header-bar__tag">Technical Proposal — [Short Title]</span>
+  </div>
+
+  <h2>5. Team Composition and Key Personnel</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Role</th>
+        <th>Name</th>
+        <th>Qualifications</th>
+        <th>Level of Effort</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="team-role">Team Leader / Lead Evaluator</td>
+        <td>[Name]</td>
+        <td>[Degree, years of experience, key expertise]</td>
+        <td>[XX days]</td>
+      </tr>
+      <tr>
+        <td class="team-role">Research / Evaluation Specialist</td>
+        <td>[Name]</td>
+        <td>[Degree, key expertise]</td>
+        <td>[XX days]</td>
+      </tr>
+      <tr>
+        <td class="team-role">Data Analyst</td>
+        <td>[Name]</td>
+        <td>[Degree, tools]</td>
+        <td>[XX days]</td>
+      </tr>
+      <tr>
+        <td class="team-role">Field Coordinator</td>
+        <td>[Name]</td>
+        <td>[Experience, local knowledge]</td>
+        <td>[XX days]</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout callout--gold">
+    <p><strong>Team Strength:</strong> Our team combines deep methodological expertise with practical field experience and local contextual knowledge, ensuring rigorous evidence grounded in real-world realities.</p>
+  </div>
+</div>
+
+<!-- ============================================================
+     6. QUALITY ASSURANCE AND ETHICS
+     ============================================================ -->
+<div class="section-break">
+  <div class="page-header-bar">
+    <span class="page-header-bar__brand">ANGAVU Metrics</span>
+    <span class="page-header-bar__tag">Technical Proposal — [Short Title]</span>
+  </div>
+
+  <h2>6. Quality Assurance and Ethics</h2>
+
+  <h3>6.1 Quality Assurance</h3>
+  <ul>
+    <li>All data collection tools will be pre-tested and piloted before deployment</li>
+    <li>Daily data quality checks during fieldwork using automated validation rules</li>
+    <li>Back-checks and spot-checks on a minimum of [X]% of interviews</li>
+    <li>Peer review of draft report by senior quality reviewer</li>
+  </ul>
+
+  <h3>6.2 Ethical Considerations</h3>
+  <ul>
+    <li>Informed consent obtained from all respondents prior to data collection</li>
+    <li>Confidentiality and anonymity guaranteed throughout reporting</li>
+    <li>Data stored securely with restricted access; compliance with Kenya's Data Protection Act</li>
+    <li>Sensitive populations safeguarded through do-no-harm protocols</li>
+    <li>[Ethics approval from: IRB / NACOSTI / relevant body, if applicable]</li>
+  </ul>
+</div>
+
+<!-- ============================================================
+     7. RELEVANT EXPERIENCE
+     ============================================================ -->
+<div class="section-break">
+  <div class="page-header-bar">
+    <span class="page-header-bar__brand">ANGAVU Metrics</span>
+    <span class="page-header-bar__tag">Technical Proposal — [Short Title]</span>
+  </div>
+
+  <h2>7. Relevant Experience</h2>
+
+  <p>Angavu Metrics brings directly relevant experience in [sector], [methodology], and [geography]. Selected engagements include:</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Assignment</th>
+        <th>Client</th>
+        <th>Scope</th>
+        <th>Year</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>[Assignment title]</td>
+        <td>[Client name]</td>
+        <td>[Brief description]</td>
+        <td>[Year]</td>
+      </tr>
+      <tr>
+        <td>[Assignment title]</td>
+        <td>[Client name]</td>
+        <td>[Brief description]</td>
+        <td>[Year]</td>
+      </tr>
+      <tr>
+        <td>[Assignment title]</td>
+        <td>[Client name]</td>
+        <td>[Brief description]</td>
+        <td>[Year]</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ============================================================
+     8. BUDGET SUMMARY
+     ============================================================ -->
+<div class="section-break">
+  <div class="page-header-bar">
+    <span class="page-header-bar__brand">ANGAVU Metrics</span>
+    <span class="page-header-bar__tag">Technical Proposal — [Short Title]</span>
+  </div>
+
+  <h2>8. Budget Summary</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Category</th>
+        <th>Description</th>
+        <th>Amount (USD)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Professional fees</td>
+        <td>Team Leader, specialists, analysts</td>
+        <td>[Amount]</td>
+      </tr>
+      <tr>
+        <td>Field operations</td>
+        <td>Enumerators, transport, logistics</td>
+        <td>[Amount]</td>
+      </tr>
+      <tr>
+        <td>Data management</td>
+        <td>Tool development, data processing, analysis</td>
+        <td>[Amount]</td>
+      </tr>
+      <tr>
+        <td>Workshops / dissemination</td>
+        <td>Validation workshop, printing, presentations</td>
+        <td>[Amount]</td>
+      </tr>
+      <tr>
+        <td>Overheads</td>
+        <td>Communication, insurance, administration</td>
+        <td>[Amount]</td>
+      </tr>
+      <tr>
+        <td><strong>Total</strong></td>
+        <td></td>
+        <td><strong>[Total Amount]</strong></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p><em>A detailed budget breakdown is provided in Annex [X].</em></p>
+</div>
+
+<!-- ============================================================
+     FOOTER / BACK PAGE
+     ============================================================ -->
+<div class="section-break" style="display: flex; flex-direction: column; justify-content: flex-end; min-height: 60vh;">
+  <div class="page-footer-bar" style="border-top: 2px solid var(--teal); padding-top: 1.5rem;">
+    <div>
+      <strong style="color: var(--navy); font-family: var(--font-h);">ANGAVU Metrics</strong><br>
+      Clarity. Evidence. Impact.
+    </div>
+    <div style="text-align: right;">
+      info@angavumetrics.com<br>
+      Nairobi, Kenya<br>
+      Registered with the Registrar of Companies &amp; NGO Coordination Board, Kenya
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
