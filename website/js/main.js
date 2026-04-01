@@ -22,50 +22,82 @@ document.addEventListener('DOMContentLoaded', () => {
   const navList = document.getElementById('navList');
 
   // Create overlay element for mobile nav
-  const navOverlay = document.createElement('div');
-  navOverlay.className = 'nav-overlay';
-  navOverlay.id = 'navOverlay';
-  document.body.appendChild(navOverlay);
+  let navOverlay = document.getElementById('navOverlay');
+  if (!navOverlay) {
+    navOverlay = document.createElement('div');
+    navOverlay.className = 'nav-overlay';
+    navOverlay.id = 'navOverlay';
+    document.body.appendChild(navOverlay);
+  }
+
+  let navIsOpen = false;
 
   function openMobileNav() {
+    navIsOpen = true;
     navList.classList.add('nav__list--open');
     navToggle.classList.add('is-active');
     navToggle.setAttribute('aria-expanded', 'true');
     navOverlay.classList.add('is-visible');
-    document.body.style.overflow = 'hidden'; // Lock scroll
+    document.body.style.overflow = 'hidden';
+    document.body.style.touchAction = 'none';
   }
 
   function closeMobileNav() {
+    navIsOpen = false;
     navList.classList.remove('nav__list--open');
     navToggle.classList.remove('is-active');
     navToggle.setAttribute('aria-expanded', 'false');
     navOverlay.classList.remove('is-visible');
-    document.body.style.overflow = ''; // Unlock scroll
+    document.body.style.overflow = '';
+    document.body.style.touchAction = '';
+  }
+
+  function toggleMobileNav(e) {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    if (navIsOpen) {
+      closeMobileNav();
+    } else {
+      openMobileNav();
+    }
   }
 
   if (navToggle && navList) {
-    navToggle.addEventListener('click', () => {
-      const isOpen = navList.classList.contains('nav__list--open');
-      if (isOpen) {
-        closeMobileNav();
-      } else {
-        openMobileNav();
-      }
-    });
+    // Use both click and touchend for maximum mobile compatibility
+    navToggle.addEventListener('click', toggleMobileNav);
+    navToggle.addEventListener('touchend', function(e) {
+      e.preventDefault(); // Prevent ghost click
+      toggleMobileNav(e);
+    }, { passive: false });
 
     // Close on clicking a nav link
     navList.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', closeMobileNav);
+      link.addEventListener('click', function() {
+        if (navIsOpen) closeMobileNav();
+      });
     });
 
-    // Close on overlay click
+    // Close on overlay click/touch
     navOverlay.addEventListener('click', closeMobileNav);
+    navOverlay.addEventListener('touchend', function(e) {
+      e.preventDefault();
+      closeMobileNav();
+    }, { passive: false });
 
     // Close on Escape key
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && navList.classList.contains('nav__list--open')) {
+      if (e.key === 'Escape' && navIsOpen) {
         closeMobileNav();
         navToggle.focus();
+      }
+    });
+
+    // Close on window resize to desktop
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 768 && navIsOpen) {
+        closeMobileNav();
       }
     });
   }
@@ -243,28 +275,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // ---------- Close mobile nav on outside click (fallback for non-overlay areas) ----------
-  document.addEventListener('click', (e) => {
-    const nl = document.getElementById('navList');
-    const nt = document.getElementById('navToggle');
-    if (nl && nt && nl.classList.contains('nav__list--open')) {
-      if (!nl.contains(e.target) && !nt.contains(e.target) && e.target.id !== 'navOverlay') {
-        closeMobileNav();
-      }
-    }
-  });
-
-  // ---------- Close mobile nav on window resize to desktop ----------
-  let resizeTimer;
-  window.addEventListener('resize', () => {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(() => {
-      if (window.innerWidth > 768) {
-        closeMobileNav();
-      }
-    }, 100);
-  });
-
   // ---------- Subtle Parallax on Hero ----------
   const hero = document.querySelector('.hero');
   const heroVisual = document.querySelector('.hero__visual');
@@ -302,8 +312,7 @@ document.addEventListener('DOMContentLoaded', () => {
     navList.addEventListener('touchend', (e) => {
       const diffX = e.changedTouches[0].screenX - touchStartX;
       const diffY = Math.abs(e.changedTouches[0].screenY - touchStartY);
-      // Swipe right to close (min 60px horizontal, not mostly vertical)
-      if (diffX > 60 && diffY < 100) {
+      if (diffX > 60 && diffY < 100 && navIsOpen) {
         closeMobileNav();
       }
     }, { passive: true });
