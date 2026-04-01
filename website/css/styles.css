@@ -128,17 +128,18 @@
 
 html {
   scroll-behavior: smooth;
-  font-size: 16px;
+  font-size: 17px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 body {
   font-family: var(--font-body);
-  font-size: 1rem;
-  line-height: 1.7;
+  font-size: 1.05rem;
+  line-height: 1.8;
   color: var(--color-ink);
   background-color: var(--color-white);
+  letter-spacing: -0.005em;
 }
 
 img {
@@ -164,24 +165,41 @@ ul, ol {
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
   font-weight: 700;
-  line-height: 1.25;
+  line-height: 1.2;
   color: var(--color-primary);
+  letter-spacing: -0.02em;
 }
 
-h1 { font-size: clamp(2rem, 5vw, 3.25rem); margin-bottom: var(--space-lg); }
-h2 { font-size: clamp(1.5rem, 3.5vw, 2.25rem); margin-bottom: var(--space-md); }
-h3 { font-size: clamp(1.125rem, 2.5vw, 1.5rem); margin-bottom: var(--space-sm); }
-h4 { font-size: 1.125rem; margin-bottom: var(--space-sm); }
+h1 { font-size: clamp(2.25rem, 5vw, 3.5rem); margin-bottom: var(--space-lg); font-weight: 800; }
+h2 { font-size: clamp(1.65rem, 3.5vw, 2.5rem); margin-bottom: var(--space-md); }
+h3 { font-size: clamp(1.2rem, 2.5vw, 1.6rem); margin-bottom: var(--space-sm); letter-spacing: -0.01em; }
+h4 { font-size: 1.15rem; margin-bottom: var(--space-sm); font-weight: 600; letter-spacing: 0; }
 
 p {
-  margin-bottom: var(--space-md);
-  max-width: 72ch;
+  margin-bottom: var(--space-lg);
+  max-width: 68ch;
+  line-height: 1.85;
+}
+
+p + p {
+  margin-top: -0.25rem;
 }
 
 .lead {
-  font-size: 1.2rem;
+  font-size: 1.25rem;
   color: var(--color-ink-light);
-  line-height: 1.8;
+  line-height: 1.85;
+  font-weight: 400;
+}
+
+strong, b {
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+em {
+  font-style: italic;
+  color: var(--color-secondary-dark);
 }
 
 /* ---------- Utility Classes ---------- */
@@ -224,19 +242,23 @@ p {
   text-align: center;
   margin-bottom: var(--space-3xl);
 }
+.section-header h2 {
+  margin-bottom: var(--space-lg);
+}
 .section-header p {
   margin-inline: auto;
+  font-size: 1.15rem;
 }
 
 .label {
   display: inline-block;
   font-family: var(--font-heading);
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   font-weight: 600;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--color-secondary);
-  margin-bottom: var(--space-sm);
+  margin-bottom: var(--space-md);
 }
 
 .label--light {
@@ -249,9 +271,9 @@ p {
   align-items: center;
   gap: var(--space-sm);
   font-family: var(--font-heading);
-  font-size: 0.95rem;
+  font-size: 1rem;
   font-weight: 600;
-  padding: 0.75rem 1.75rem;
+  padding: 0.8rem 1.85rem;
   border-radius: var(--radius-md);
   border: 2px solid transparent;
   cursor: pointer;
@@ -393,7 +415,7 @@ p {
 
 .nav__link {
   font-family: var(--font-heading);
-  font-size: 0.9rem;
+  font-size: 0.92rem;
   font-weight: 500;
   color: var(--color-ink);
   text-decoration: none;
@@ -537,10 +559,11 @@ p {
 
 .hero h1 {
   color: var(--color-white);
-  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-size: clamp(2.75rem, 6vw, 4.25rem);
   font-weight: 800;
-  margin-bottom: var(--space-lg);
-  line-height: 1.15;
+  margin-bottom: var(--space-xl);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
 }
 .hero h1 .highlight {
   background: linear-gradient(135deg, var(--color-accent), var(--color-accent-light));
@@ -550,11 +573,12 @@ p {
 }
 
 .hero__subtitle {
-  font-size: 1.25rem;
-  line-height: 1.7;
-  color: rgba(255,255,255,0.8);
-  max-width: 560px;
+  font-size: 1.3rem;
+  line-height: 1.75;
+  color: rgba(255,255,255,0.85);
+  max-width: 580px;
   margin-bottom: var(--space-2xl);
+  font-weight: 400;
 }
 
 .hero__actions {
@@ -662,8 +686,9 @@ p {
 
 .service-card p {
   color: var(--color-ink-light);
-  font-size: 0.95rem;
-  margin-bottom: var(--space-md);
+  font-size: 1rem;
+  line-height: 1.75;
+  margin-bottom: var(--space-lg);
 }
 
 /* ---------- Approach Pillars ---------- */
@@ -712,6 +737,8 @@ p {
 .pillar p {
   color: var(--color-ink-light);
   margin-inline: auto;
+  font-size: 1.05rem;
+  line-height: 1.75;
 }
 
 /* ---------- Featured Projects ---------- */
@@ -787,11 +814,11 @@ p {
 }
 
 .tag {
-  font-size: 0.72rem;
+  font-size: 0.76rem;
   font-weight: 600;
   color: var(--color-secondary);
   background-color: rgba(42, 157, 143, 0.08);
-  padding: 0.25rem 0.75rem;
+  padding: 0.3rem 0.85rem;
   border-radius: 50px;
   font-family: var(--font-heading);
   letter-spacing: 0.02em;
@@ -799,11 +826,12 @@ p {
 
 .project-card h3 {
   margin-bottom: var(--space-sm);
-  font-size: 1.15rem;
+  font-size: 1.2rem;
 }
 
 .project-card p {
-  font-size: 0.9rem;
+  font-size: 1rem;
+  line-height: 1.7;
   color: var(--color-ink-light);
 }
 
@@ -821,7 +849,7 @@ p {
   opacity: 0.35;
   font-family: var(--font-heading);
   font-weight: 700;
-  font-size: 1.05rem;
+  font-size: 1.1rem;
   color: var(--color-ink);
   transition: all 0.4s var(--ease);
   padding: 0.75rem 1.5rem;
@@ -870,9 +898,9 @@ p {
 }
 
 .testimonial-card__quote {
-  font-size: 1.05rem;
+  font-size: 1.1rem;
   font-style: italic;
-  line-height: 1.7;
+  line-height: 1.8;
   color: var(--color-ink);
   margin-bottom: var(--space-lg);
   position: relative;
@@ -883,13 +911,14 @@ p {
 .testimonial-card__author {
   font-family: var(--font-heading);
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 1rem;
   color: var(--color-primary);
 }
 
 .testimonial-card__role {
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   color: var(--color-gray);
+  margin-top: 0.15rem;
 }
 
 /* ---------- CTA Banner ---------- */
@@ -920,8 +949,10 @@ p {
 
 .cta-banner p {
   margin-inline: auto;
-  color: rgba(255,255,255,0.85);
+  color: rgba(255,255,255,0.9);
   margin-bottom: var(--space-2xl);
+  font-size: 1.15rem;
+  line-height: 1.75;
 }
 
 .cta-banner .btn--outline:hover {
@@ -980,7 +1011,8 @@ p {
 }
 
 .value-item p {
-  font-size: 0.9rem;
+  font-size: 1rem;
+  line-height: 1.75;
   color: var(--color-ink-light);
 }
 
@@ -1006,9 +1038,10 @@ p {
 }
 
 .service-detail__sidebar a {
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   color: var(--color-ink-light);
   transition: color var(--duration) var(--ease);
+  line-height: 1.6;
 }
 .service-detail__sidebar a:hover {
   color: var(--color-secondary);
@@ -1021,8 +1054,10 @@ p {
 .service-list li {
   position: relative;
   padding-left: var(--space-lg);
-  margin-bottom: var(--space-sm);
+  margin-bottom: 0.65rem;
   color: var(--color-ink-light);
+  font-size: 1.05rem;
+  line-height: 1.7;
 }
 .service-list li::before {
   content: '';
@@ -1065,17 +1100,18 @@ p {
 }
 
 .team-card__title {
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   color: var(--color-secondary);
   font-weight: 600;
   margin-bottom: var(--space-sm);
 }
 
 .team-card p {
-  font-size: 0.9rem;
+  font-size: 1rem;
+  line-height: 1.7;
   color: var(--color-ink-light);
   margin-inline: auto;
-  max-width: 300px;
+  max-width: 320px;
 }
 
 /* ---------- Contact ---------- */
@@ -1092,7 +1128,7 @@ p {
 .form-group label {
   display: block;
   font-family: var(--font-heading);
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   font-weight: 600;
   color: var(--color-primary);
   margin-bottom: var(--space-sm);
@@ -1102,11 +1138,11 @@ p {
 .form-group textarea,
 .form-group select {
   width: 100%;
-  padding: 0.75rem 1rem;
+  padding: 0.85rem 1.1rem;
   border: 1px solid var(--color-gray-light);
   border-radius: var(--radius-md);
   font-family: var(--font-body);
-  font-size: 0.95rem;
+  font-size: 1rem;
   color: var(--color-ink);
   background-color: var(--color-white);
   transition: border-color var(--duration) var(--ease);
@@ -1144,14 +1180,15 @@ p {
 }
 
 .contact-info__text h4 {
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   margin-bottom: 2px;
 }
 
 .contact-info__text p {
-  font-size: 0.9rem;
+  font-size: 1rem;
   color: var(--color-ink-light);
   margin-bottom: 0;
+  line-height: 1.6;
 }
 
 /* ---------- Footer ---------- */
@@ -1177,7 +1214,8 @@ p {
 }
 
 .footer__about p {
-  font-size: 0.9rem;
+  font-size: 0.95rem;
+  line-height: 1.75;
   margin-top: var(--space-md);
 }
 
@@ -1194,9 +1232,10 @@ p {
 }
 
 .footer__links a {
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   color: rgba(255,255,255,0.6);
   transition: color var(--duration) var(--ease);
+  line-height: 1.6;
 }
 .footer__links a:hover {
   color: var(--color-accent);
@@ -1208,7 +1247,7 @@ p {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
 }
 
 .footer__bottom a {
@@ -1248,17 +1287,22 @@ p {
 
 .page-header h1 {
   color: var(--color-white);
+  font-size: clamp(2rem, 5vw, 3rem);
+  margin-bottom: var(--space-md);
 }
 
 .page-header p {
-  color: rgba(255,255,255, 0.75);
+  color: rgba(255,255,255, 0.8);
   margin-inline: auto;
+  font-size: 1.2rem;
+  line-height: 1.75;
 }
 
 .breadcrumb {
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   color: rgba(255,255,255,0.5);
   margin-bottom: var(--space-lg);
+  letter-spacing: 0.01em;
 }
 .breadcrumb a {
   color: rgba(255,255,255,0.5);
@@ -1338,8 +1382,8 @@ p {
   display: block;
 }
 .counter-item__label {
-  font-size: 0.9rem;
-  color: rgba(255,255,255,0.7);
+  font-size: 1rem;
+  color: rgba(255,255,255,0.75);
 }
 
 /* ---------- Enhanced Project Cards ---------- */
@@ -1386,7 +1430,8 @@ p {
   margin-bottom: var(--space-xs);
 }
 .why-item p {
-  font-size: 0.9rem;
+  font-size: 1rem;
+  line-height: 1.7;
   color: var(--color-ink-light);
 }
 
@@ -1413,9 +1458,9 @@ p {
   line-height: 1.2;
 }
 .impact-number__label {
-  font-size: 0.9rem;
-  color: rgba(255,255,255,0.65);
-  margin-top: var(--space-xs);
+  font-size: 1rem;
+  color: rgba(255,255,255,0.7);
+  margin-top: var(--space-sm);
 }
 
 /* ---------- Methodology Cards (Approach page) ---------- */
@@ -1438,10 +1483,11 @@ p {
 }
 .methodology-card h4 {
   color: var(--color-secondary-dark);
-  margin-bottom: var(--space-xs);
+  margin-bottom: var(--space-sm);
 }
 .methodology-card p {
-  font-size: 0.9rem;
+  font-size: 1rem;
+  line-height: 1.7;
   color: var(--color-ink-light);
   margin-bottom: 0;
 }
@@ -1458,6 +1504,70 @@ p {
   height: 3px;
   background: linear-gradient(90deg, var(--color-secondary), var(--color-accent));
   border-radius: 2px;
+}
+
+/* ---------- Enhanced Text Formatting ---------- */
+
+/* About intro — larger, more readable paragraphs */
+.about-intro p {
+  font-size: 1.1rem;
+  line-height: 1.85;
+}
+
+/* Service detail pages — better scannability */
+.service-detail h2 {
+  font-size: clamp(1.5rem, 3vw, 2.15rem);
+  margin-bottom: var(--space-lg);
+}
+.service-detail p {
+  font-size: 1.1rem;
+  line-height: 1.85;
+}
+.service-detail h4 {
+  margin-top: var(--space-2xl);
+  margin-bottom: var(--space-md);
+  padding-bottom: var(--space-xs);
+  border-bottom: 2px solid var(--color-secondary);
+  display: inline-block;
+}
+
+/* CTA banner heading */
+.cta-banner h2 {
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  letter-spacing: -0.02em;
+}
+
+/* Better list formatting in inner pages */
+.service-list {
+  margin-top: var(--space-md);
+  margin-bottom: var(--space-xl);
+}
+
+/* Privacy / Terms pages — readable long-form text */
+.page-content p,
+.page-content li {
+  font-size: 1.05rem;
+  line-height: 1.85;
+}
+.page-content h3 {
+  margin-top: var(--space-2xl);
+}
+.page-content ul, .page-content ol {
+  padding-left: var(--space-xl);
+  margin-bottom: var(--space-lg);
+}
+.page-content li {
+  margin-bottom: var(--space-sm);
+  padding-left: var(--space-xs);
+}
+.page-content ul li {
+  list-style-type: disc;
+  color: var(--color-ink-light);
+}
+
+/* Hero stat labels — slightly larger */
+.hero__stat-label {
+  font-size: 0.95rem;
 }
 
 /* ---------- Responsive ---------- */
@@ -1521,7 +1631,7 @@ p {
     padding-block: calc(72px + var(--space-3xl)) var(--space-3xl);
   }
   .hero h1 {
-    font-size: clamp(2rem, 8vw, 2.75rem);
+    font-size: clamp(2.25rem, 8vw, 3rem);
   }
   .hero__stats {
     flex-direction: column;
