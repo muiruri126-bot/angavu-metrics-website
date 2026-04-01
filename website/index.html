@@ -28,6 +28,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='6' y='28' width='5' height='8' rx='1' fill='%232A9D8F'/%3E%3Crect x='13' y='22' width='5' height='14' rx='1' fill='%232A9D8F'/%3E%3Crect x='20' y='16' width='5' height='20' rx='1' fill='%231A365D'/%3E%3Crect x='27' y='10' width='5' height='26' rx='1' fill='%231A365D'/%3E%3Cpath d='M4 8 Q20 0 36 8' stroke='%23D4A843' stroke-width='2.5' fill='none'/%3E%3Ccircle cx='20' cy='4' r='2.5' fill='%23D4A843'/%3E%3C/svg%3E">
 
   <!-- Structured Data -->
   <script type="application/ld+json">
@@ -49,6 +50,9 @@
   </script>
 </head>
 <body>
+
+  <!-- Scroll Progress Bar -->
+  <div class="scroll-progress" id="scrollProgress"></div>
 
   <a href="#main" class="skip-link">Skip to main content</a>
 
@@ -97,7 +101,7 @@
     <div class="container">
       <div class="hero__content">
         <span class="hero__label">Monitoring &bull; Evaluation &bull; Impact</span>
-        <h1>Clarity. Evidence. Impact.</h1>
+        <h1>Clarity. Evidence.<br><span class="highlight">Impact.</span></h1>
         <p class="hero__subtitle">
           We help NGOs, development partners, and governments design better programmes, measure what matters, and turn evidence into action.
         </p>
@@ -121,6 +125,21 @@
           <span class="hero__stat-label">Advisory & Institutional Support</span>
         </div>
       </div>
+    </div>
+
+    <!-- Decorative hero visual -->
+    <div class="hero__visual" aria-hidden="true">
+      <svg width="500" height="500" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="250" cy="250" r="200" stroke="white" stroke-width="0.5" opacity="0.3"/>
+        <circle cx="250" cy="250" r="150" stroke="white" stroke-width="0.5" opacity="0.2"/>
+        <circle cx="250" cy="250" r="100" stroke="white" stroke-width="0.5" opacity="0.15"/>
+        <rect x="180" y="280" width="20" height="80" rx="4" fill="#2A9D8F" opacity="0.6"/>
+        <rect x="210" y="240" width="20" height="120" rx="4" fill="#2A9D8F" opacity="0.7"/>
+        <rect x="240" y="200" width="20" height="160" rx="4" fill="white" opacity="0.5"/>
+        <rect x="270" y="160" width="20" height="200" rx="4" fill="white" opacity="0.6"/>
+        <rect x="300" y="130" width="20" height="230" rx="4" fill="#D4A843" opacity="0.5"/>
+        <path d="M170 270 Q250 180 330 220" stroke="#D4A843" stroke-width="2" fill="none" opacity="0.6"/>
+      </svg>
     </div>
   </section>
 
@@ -361,6 +380,86 @@
           <p class="testimonial-card__quote">"Their baseline survey design was robust, their field coordination was exemplary, and their final report was one of the clearest we've received. We look forward to working together on the endline."</p>
           <p class="testimonial-card__author">M&E Manager</p>
           <p class="testimonial-card__role">Regional Health Programme</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== WHY CHOOSE US ========== -->
+  <section class="section" id="why">
+    <div class="container">
+      <div class="section-header">
+        <span class="label">Why Angavu Metrics</span>
+        <h2>What Sets Us Apart</h2>
+        <p class="lead">We combine methodological rigour with deep contextual understanding to deliver evidence that drives real change.</p>
+      </div>
+
+      <div class="why-grid">
+        <div class="why-item">
+          <div class="why-item__number">1</div>
+          <div>
+            <h4>Evidence Without Jargon</h4>
+            <p>We translate complex data and findings into clear, actionable insights that decision-makers at every level can understand and use.</p>
+          </div>
+        </div>
+        <div class="why-item">
+          <div class="why-item__number">2</div>
+          <div>
+            <h4>Contextually Grounded</h4>
+            <p>Africa-headquartered with deep understanding of local systems, institutions, and political economies — we design for context, not templates.</p>
+          </div>
+        </div>
+        <div class="why-item">
+          <div class="why-item__number">3</div>
+          <div>
+            <h4>Bridging Perspectives</h4>
+            <p>We work across NGO, government, and donor boundaries — translating evidence into formats that serve each audience's needs.</p>
+          </div>
+        </div>
+        <div class="why-item">
+          <div class="why-item__number">4</div>
+          <div>
+            <h4>Actionable, Not Academic</h4>
+            <p>Every deliverable comes with practical, implementable recommendations — not just findings. We focus on what you can do differently, starting now.</p>
+          </div>
+        </div>
+        <div class="why-item">
+          <div class="why-item__number">5</div>
+          <div>
+            <h4>Rigour and Integrity</h4>
+            <p>We uphold the highest standards of research ethics, data quality, and analytical transparency — meeting OECD-DAC and international evaluation standards.</p>
+          </div>
+        </div>
+        <div class="why-item">
+          <div class="why-item__number">6</div>
+          <div>
+            <h4>Learning-Centred</h4>
+            <p>We build MEAL systems and evaluations that feed learning back into programmes — turning monitoring from a compliance exercise into a management tool.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== IMPACT NUMBERS ========== -->
+  <section class="section--primary">
+    <div class="container">
+      <div class="impact-numbers">
+        <div class="impact-number">
+          <span class="impact-number__value" data-count="6">6</span>
+          <span class="impact-number__label">Core Service Areas</span>
+        </div>
+        <div class="impact-number">
+          <span class="impact-number__value">10+</span>
+          <span class="impact-number__label">Methodological Frameworks</span>
+        </div>
+        <div class="impact-number">
+          <span class="impact-number__value">3</span>
+          <span class="impact-number__label">Foundational Pillars</span>
+        </div>
+        <div class="impact-number">
+          <span class="impact-number__value">Global</span>
+          <span class="impact-number__label">Reach, Africa-Headquartered</span>
         </div>
       </div>
     </div>
