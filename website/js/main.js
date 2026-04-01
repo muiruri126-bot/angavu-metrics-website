@@ -81,7 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Apply staggered delays to groups of elements
   const animateElements = document.querySelectorAll(
-    '.service-card, .project-card, .testimonial-card, .pillar, .value-item, .team-card, .why-item, .methodology-card, .impact-number'
+    '.service-card, .project-card, .testimonial-card, .pillar, .value-item, .team-card, .why-item, .methodology-card, .impact-number, .highlight-card, .resource-tile, .resource-card, .thematic-tag'
   );
 
   animateElements.forEach((el, index) => {
@@ -258,6 +258,24 @@ document.addEventListener('DOMContentLoaded', () => {
       pageHeader.style.opacity = '1';
       pageHeader.style.transform = 'translateY(0)';
     });
+  }
+
+  // ---------- Secondary Quick-Links Bar ----------
+  const quickLinks = document.getElementById('quickLinks');
+  if (quickLinks) {
+    let lastScrollY = 0;
+    const showQuickLinks = () => {
+      const scrollY = window.scrollY;
+      // Show after scrolling past 300px
+      if (scrollY > 300) {
+        quickLinks.classList.add('is-visible');
+      } else {
+        quickLinks.classList.remove('is-visible');
+      }
+      lastScrollY = scrollY;
+    };
+    window.addEventListener('scroll', showQuickLinks, { passive: true });
+    showQuickLinks();
   }
 
   // ---------- Hero entrance animation ----------
