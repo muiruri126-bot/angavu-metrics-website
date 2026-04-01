@@ -17,11 +17,11 @@ document.addEventListener('DOMContentLoaded', () => {
     updateProgress();
   }
 
-  // ---------- Mobile Navigation Toggle (Animated Hamburger + Drawer) ----------
+  // ---------- Mobile Navigation Toggle (Simple Dropdown) ----------
   const navToggle = document.getElementById('navToggle');
   const navList = document.getElementById('navList');
 
-  // Create overlay element for mobile nav
+  // Create overlay
   let navOverlay = document.getElementById('navOverlay');
   if (!navOverlay) {
     navOverlay = document.createElement('div');
@@ -38,8 +38,6 @@ document.addEventListener('DOMContentLoaded', () => {
     navToggle.classList.add('is-active');
     navToggle.setAttribute('aria-expanded', 'true');
     navOverlay.classList.add('is-visible');
-    document.body.style.overflow = 'hidden';
-    document.body.style.touchAction = 'none';
   }
 
   function closeMobileNav() {
@@ -48,55 +46,48 @@ document.addEventListener('DOMContentLoaded', () => {
     navToggle.classList.remove('is-active');
     navToggle.setAttribute('aria-expanded', 'false');
     navOverlay.classList.remove('is-visible');
-    document.body.style.overflow = '';
-    document.body.style.touchAction = '';
-  }
-
-  function toggleMobileNav(e) {
-    if (e) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
-    if (navIsOpen) {
-      closeMobileNav();
-    } else {
-      openMobileNav();
-    }
   }
 
   if (navToggle && navList) {
-    // Use both click and touchend for maximum mobile compatibility
-    navToggle.addEventListener('click', toggleMobileNav);
-    navToggle.addEventListener('touchend', function(e) {
-      e.preventDefault(); // Prevent ghost click
-      toggleMobileNav(e);
-    }, { passive: false });
+    // Single click handler — works on both touch and mouse
+    navToggle.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      if (navIsOpen) {
+        closeMobileNav();
+      } else {
+        openMobileNav();
+      }
+    });
 
     // Close on clicking a nav link
-    navList.querySelectorAll('a').forEach(link => {
+    navList.querySelectorAll('a').forEach(function(link) {
       link.addEventListener('click', function() {
         if (navIsOpen) closeMobileNav();
       });
     });
 
-    // Close on overlay click/touch
+    // Close on overlay tap
     navOverlay.addEventListener('click', closeMobileNav);
-    navOverlay.addEventListener('touchend', function(e) {
-      e.preventDefault();
-      closeMobileNav();
-    }, { passive: false });
 
     // Close on Escape key
-    document.addEventListener('keydown', (e) => {
+    document.addEventListener('keydown', function(e) {
       if (e.key === 'Escape' && navIsOpen) {
         closeMobileNav();
         navToggle.focus();
       }
     });
 
-    // Close on window resize to desktop
-    window.addEventListener('resize', () => {
+    // Close on resize to desktop
+    window.addEventListener('resize', function() {
       if (window.innerWidth > 768 && navIsOpen) {
+        closeMobileNav();
+      }
+    });
+
+    // Close when tapping outside the nav
+    document.addEventListener('click', function(e) {
+      if (navIsOpen && !navList.contains(e.target) && !navToggle.contains(e.target)) {
         closeMobileNav();
       }
     });
@@ -300,23 +291,6 @@ document.addEventListener('DOMContentLoaded', () => {
       input.style.borderColor = '';
     });
   });
-
-  // ---------- Swipe-to-Close Mobile Nav (right swipe) ----------
-  if (navList) {
-    let touchStartX = 0;
-    let touchStartY = 0;
-    navList.addEventListener('touchstart', (e) => {
-      touchStartX = e.changedTouches[0].screenX;
-      touchStartY = e.changedTouches[0].screenY;
-    }, { passive: true });
-    navList.addEventListener('touchend', (e) => {
-      const diffX = e.changedTouches[0].screenX - touchStartX;
-      const diffY = Math.abs(e.changedTouches[0].screenY - touchStartY);
-      if (diffX > 60 && diffY < 100 && navIsOpen) {
-        closeMobileNav();
-      }
-    }, { passive: true });
-  }
 
   // ---------- Smooth reveal for page header ----------
   const pageHeader = document.querySelector('.page-header');
