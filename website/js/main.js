@@ -17,23 +17,56 @@ document.addEventListener('DOMContentLoaded', () => {
     updateProgress();
   }
 
-  // ---------- Mobile Navigation Toggle (Animated Hamburger) ----------
+  // ---------- Mobile Navigation Toggle (Animated Hamburger + Drawer) ----------
   const navToggle = document.getElementById('navToggle');
   const navList = document.getElementById('navList');
 
+  // Create overlay element for mobile nav
+  const navOverlay = document.createElement('div');
+  navOverlay.className = 'nav-overlay';
+  navOverlay.id = 'navOverlay';
+  document.body.appendChild(navOverlay);
+
+  function openMobileNav() {
+    navList.classList.add('nav__list--open');
+    navToggle.classList.add('is-active');
+    navToggle.setAttribute('aria-expanded', 'true');
+    navOverlay.classList.add('is-visible');
+    document.body.style.overflow = 'hidden'; // Lock scroll
+  }
+
+  function closeMobileNav() {
+    navList.classList.remove('nav__list--open');
+    navToggle.classList.remove('is-active');
+    navToggle.setAttribute('aria-expanded', 'false');
+    navOverlay.classList.remove('is-visible');
+    document.body.style.overflow = ''; // Unlock scroll
+  }
+
   if (navToggle && navList) {
     navToggle.addEventListener('click', () => {
-      const isOpen = navList.classList.toggle('nav__list--open');
-      navToggle.classList.toggle('is-active', isOpen);
-      navToggle.setAttribute('aria-expanded', isOpen);
+      const isOpen = navList.classList.contains('nav__list--open');
+      if (isOpen) {
+        closeMobileNav();
+      } else {
+        openMobileNav();
+      }
     });
 
     // Close on clicking a nav link
     navList.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        navList.classList.remove('nav__list--open');
-        navToggle.classList.remove('is-active');
-      });
+      link.addEventListener('click', closeMobileNav);
+    });
+
+    // Close on overlay click
+    navOverlay.addEventListener('click', closeMobileNav);
+
+    // Close on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && navList.classList.contains('nav__list--open')) {
+        closeMobileNav();
+        navToggle.focus();
+      }
     });
   }
 
@@ -210,16 +243,26 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // ---------- Close mobile nav on outside click ----------
+  // ---------- Close mobile nav on outside click (fallback for non-overlay areas) ----------
   document.addEventListener('click', (e) => {
-    const navList = document.getElementById('navList');
-    const navToggle = document.getElementById('navToggle');
-    if (navList && navToggle && navList.classList.contains('nav__list--open')) {
-      if (!navList.contains(e.target) && !navToggle.contains(e.target)) {
-        navList.classList.remove('nav__list--open');
-        navToggle.classList.remove('is-active');
+    const nl = document.getElementById('navList');
+    const nt = document.getElementById('navToggle');
+    if (nl && nt && nl.classList.contains('nav__list--open')) {
+      if (!nl.contains(e.target) && !nt.contains(e.target) && e.target.id !== 'navOverlay') {
+        closeMobileNav();
       }
     }
+  });
+
+  // ---------- Close mobile nav on window resize to desktop ----------
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      if (window.innerWidth > 768) {
+        closeMobileNav();
+      }
+    }, 100);
   });
 
   // ---------- Subtle Parallax on Hero ----------
@@ -247,6 +290,24 @@ document.addEventListener('DOMContentLoaded', () => {
       input.style.borderColor = '';
     });
   });
+
+  // ---------- Swipe-to-Close Mobile Nav (right swipe) ----------
+  if (navList) {
+    let touchStartX = 0;
+    let touchStartY = 0;
+    navList.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+      touchStartY = e.changedTouches[0].screenY;
+    }, { passive: true });
+    navList.addEventListener('touchend', (e) => {
+      const diffX = e.changedTouches[0].screenX - touchStartX;
+      const diffY = Math.abs(e.changedTouches[0].screenY - touchStartY);
+      // Swipe right to close (min 60px horizontal, not mostly vertical)
+      if (diffX > 60 && diffY < 100) {
+        closeMobileNav();
+      }
+    }, { passive: true });
+  }
 
   // ---------- Smooth reveal for page header ----------
   const pageHeader = document.querySelector('.page-header');
