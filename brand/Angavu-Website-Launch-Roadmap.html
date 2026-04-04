@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Angavu Metrics — Website Launch Roadmap</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Source+Sans+3:wght@300;400;500;600&display=swap');
+
+        :root {
+            --navy: #1A365D;
+            --teal: #2A9D8F;
+            --gold: #D4A843;
+            --ink: #2D3748;
+            --cream: #F9F7F4;
+            --light-gray: #E8E5E0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Source Sans 3', 'Segoe UI', sans-serif;
+            color: var(--ink);
+            background: #fff;
+            line-height: 1.6;
+            font-size: 11pt;
+        }
+
+        @media print {
+            body { font-size: 10pt; }
+            .page-break { page-break-before: always; }
+            .no-break { page-break-inside: avoid; }
+            @page { margin: 1.5cm 2cm; size: A4; }
+            .cover { height: 100vh; }
+        }
+
+        /* ---- COVER PAGE ---- */
+        .cover {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 95vh;
+            text-align: center;
+            background: linear-gradient(135deg, var(--navy) 0%, #0f2240 100%);
+            color: #fff;
+            padding: 3rem 2rem;
+            position: relative;
+        }
+
+        .cover::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(circle at 30% 40%, rgba(42,157,143,0.15) 0%, transparent 60%),
+                        radial-gradient(circle at 70% 70%, rgba(212,168,67,0.1) 0%, transparent 50%);
+        }
+
+        .cover * { position: relative; z-index: 1; }
+
+        .cover-logo {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 2.8rem;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            margin-bottom: 0.3rem;
+        }
+
+        .cover-logo span { color: var(--teal); }
+
+        .cover-tagline {
+            font-size: 1rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 3rem;
+            font-weight: 500;
+        }
+
+        .cover h1 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+            line-height: 1.2;
+        }
+
+        .cover .subtitle {
+            font-size: 1.15rem;
+            color: rgba(255,255,255,0.75);
+            max-width: 500px;
+            margin-bottom: 3rem;
+        }
+
+        .cover-meta {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.5);
+        }
+
+        .cover-meta span { display: block; margin-bottom: 0.2rem; }
+
+        .cover-bar {
+            width: 60px;
+            height: 3px;
+            background: var(--gold);
+            margin: 1.5rem auto;
+            border-radius: 2px;
+        }
+
+        /* ---- CONTENT PAGES ---- */
+        .content {
+            max-width: 750px;
+            margin: 0 auto;
+            padding: 2rem 2rem;
+        }
+
+        h2 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--navy);
+            margin: 2.2rem 0 0.6rem;
+            padding-bottom: 0.35rem;
+            border-bottom: 2px solid var(--teal);
+            display: inline-block;
+        }
+
+        h3 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--teal);
+            margin: 1.4rem 0 0.4rem;
+        }
+
+        p { margin-bottom: 0.6rem; }
+
+        /* ---- STATUS BANNER ---- */
+        .status-banner {
+            background: var(--cream);
+            border-left: 4px solid var(--gold);
+            padding: 1rem 1.2rem;
+            margin: 1.2rem 0;
+            border-radius: 0 6px 6px 0;
+        }
+
+        .status-banner strong {
+            color: var(--navy);
+            font-size: 1.05rem;
+        }
+
+        /* ---- TABLES ---- */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0.8rem 0 1.2rem;
+            font-size: 0.92rem;
+        }
+
+        thead th {
+            background: var(--navy);
+            color: #fff;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 600;
+            text-align: left;
+            padding: 0.55rem 0.7rem;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+
+        thead th:first-child { border-radius: 4px 0 0 0; }
+        thead th:last-child { border-radius: 0 4px 0 0; }
+
+        tbody td {
+            padding: 0.5rem 0.7rem;
+            border-bottom: 1px solid var(--light-gray);
+            vertical-align: top;
+        }
+
+        tbody tr:nth-child(even) { background: #fafaf8; }
+        tbody tr:hover { background: #f0efe9; }
+
+        td.task-id {
+            font-weight: 600;
+            color: var(--teal);
+            white-space: nowrap;
+            width: 40px;
+        }
+
+        td.task-name {
+            font-weight: 600;
+            color: var(--navy);
+        }
+
+        .status-icon {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 4px;
+            vertical-align: middle;
+        }
+
+        .status-pending { background: #CBD5E0; }
+        .status-ready { background: var(--teal); }
+        .status-warning { background: var(--gold); }
+
+        /* ---- TIMELINE ---- */
+        .timeline {
+            background: var(--navy);
+            color: #fff;
+            border-radius: 8px;
+            padding: 1.5rem 1.8rem;
+            margin: 1.5rem 0;
+        }
+
+        .timeline h3 {
+            color: var(--gold);
+            margin-top: 0;
+            font-size: 1.1rem;
+        }
+
+        .timeline-row {
+            display: flex;
+            align-items: flex-start;
+            margin: 0.6rem 0;
+            font-size: 0.92rem;
+        }
+
+        .timeline-week {
+            font-weight: 700;
+            color: var(--teal);
+            min-width: 90px;
+            flex-shrink: 0;
+        }
+
+        .timeline-desc { color: rgba(255,255,255,0.85); }
+
+        /* ---- BOTTOM LINE BOX ---- */
+        .bottom-line {
+            background: linear-gradient(135deg, var(--navy), #0f2240);
+            color: #fff;
+            border-radius: 8px;
+            padding: 1.5rem 1.8rem;
+            margin: 2rem 0 1rem;
+        }
+
+        .bottom-line h3 {
+            color: var(--gold);
+            margin-top: 0;
+        }
+
+        .bottom-line p {
+            color: rgba(255,255,255,0.85);
+            font-size: 0.95rem;
+        }
+
+        /* ---- FOOTER ---- */
+        .doc-footer {
+            text-align: center;
+            padding: 2rem 0 1rem;
+            font-size: 0.8rem;
+            color: #999;
+            border-top: 1px solid var(--light-gray);
+            margin-top: 2rem;
+        }
+
+        .phase-label {
+            display: inline-block;
+            background: var(--teal);
+            color: #fff;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 700;
+            font-size: 0.75rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 0.2rem 0.7rem;
+            border-radius: 3px;
+            margin-right: 0.4rem;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+
+<!-- ==================== COVER PAGE ==================== -->
+<div class="cover">
+    <div class="cover-logo">ANGAVU<span> METRICS</span></div>
+    <div class="cover-tagline">Clarity · Evidence · Impact</div>
+    <div class="cover-bar"></div>
+    <h1>Website Launch Roadmap</h1>
+    <p class="subtitle">
+        A comprehensive step-by-step plan from current development state through to public launch and post-launch growth.
+    </p>
+    <div class="cover-bar"></div>
+    <div class="cover-meta">
+        <span>Prepared: April 4, 2026</span>
+        <span>Document Type: Internal Reference</span>
+        <span>Version: 1.0</span>
+    </div>
+</div>
+
+<!-- ==================== CONTENT ==================== -->
+<div class="content">
+
+    <!-- STATUS -->
+    <div class="page-break"></div>
+
+    <h2>Current Status Assessment</h2>
+
+    <div class="status-banner">
+        <strong>Overall Grade: B+ — Development / Staging Ready</strong><br>
+        The technical build is solid — responsive design, SEO, accessibility, animations, and core messaging are all in place. What remains is <strong>real content, deployment infrastructure, and launch preparation</strong>.
+    </div>
+
+    <h3>What's Working Well</h3>
+    <table>
+        <thead><tr><th>Area</th><th>Status</th></tr></thead>
+        <tbody>
+            <tr><td>Professional design system (colors, typography, spacing)</td><td><span class="status-icon status-ready"></span> Complete</td></tr>
+            <tr><td>Core brand story & messaging</td><td><span class="status-icon status-ready"></span> Complete</td></tr>
+            <tr><td>Responsive design & mobile navigation</td><td><span class="status-icon status-ready"></span> Complete</td></tr>
+            <tr><td>Accessibility (skip links, ARIA, semantic HTML)</td><td><span class="status-icon status-ready"></span> Complete</td></tr>
+            <tr><td>SEO (meta tags, Open Graph, JSON-LD schema)</td><td><span class="status-icon status-ready"></span> Complete</td></tr>
+            <tr><td>Interactive elements (animations, parallax, form validation)</td><td><span class="status-icon status-ready"></span> Complete</td></tr>
+            <tr><td>Services, About, Approach, Contact pages</td><td><span class="status-icon status-ready"></span> Production-Ready</td></tr>
+            <tr><td>Privacy Policy & Terms of Use</td><td><span class="status-icon status-ready"></span> Complete</td></tr>
+            <tr><td>Google Tag Manager integration</td><td><span class="status-icon status-ready"></span> Configured</td></tr>
+        </tbody>
+    </table>
+
+    <h3>What Needs Work</h3>
+    <table>
+        <thead><tr><th>Area</th><th>Status</th></tr></thead>
+        <tbody>
+            <tr><td>Team page — placeholder bios only, no real names/photos</td><td><span class="status-icon status-warning"></span> Placeholder</td></tr>
+            <tr><td>Projects/Case Studies page — "Coming Soon" only</td><td><span class="status-icon status-pending"></span> Not Started</td></tr>
+            <tr><td>Resources section — template cards, no real content</td><td><span class="status-icon status-warning"></span> Placeholder</td></tr>
+            <tr><td>Partner/client logos — text placeholders</td><td><span class="status-icon status-warning"></span> Placeholder</td></tr>
+            <tr><td>Testimonials — example quotes, not real</td><td><span class="status-icon status-warning"></span> Placeholder</td></tr>
+            <tr><td>Social media links — point to # (not configured)</td><td><span class="status-icon status-pending"></span> Not Started</td></tr>
+            <tr><td>Newsletter form — no backend integration</td><td><span class="status-icon status-pending"></span> Not Started</td></tr>
+            <tr><td>Logo — 3 concepts exist, none finalized</td><td><span class="status-icon status-warning"></span> Pending Decision</td></tr>
+        </tbody>
+    </table>
+
+    <!-- ==================== PHASE 1 ==================== -->
+    <div class="page-break"></div>
+
+    <h2><span class="phase-label">Phase 1</span> Content Completion</h2>
+    <p><strong>Priority: HIGHEST</strong> — This is the #1 blocker to going live.</p>
+
+    <table class="no-break">
+        <thead><tr><th>#</th><th>Task</th><th>Details</th></tr></thead>
+        <tbody>
+            <tr>
+                <td class="task-id">1.1</td>
+                <td class="task-name">Finalize Logo</td>
+                <td>Pick one of the 3 concepts (Clarity Prism, Impact Horizon, or Connected Insight). Produce final SVG, PNG, and favicon files.</td>
+            </tr>
+            <tr>
+                <td class="task-id">1.2</td>
+                <td class="task-name">Team Page</td>
+                <td>Replace placeholder cards with real names, titles, bios, professional headshots, and credentials for all team members.</td>
+            </tr>
+            <tr>
+                <td class="task-id">1.3</td>
+                <td class="task-name">Case Studies (Projects Page)</td>
+                <td>Write 3–5 real case studies including sector, client type, methodology used, and measurable outcomes. Replace the "Coming Soon" message.</td>
+            </tr>
+            <tr>
+                <td class="task-id">1.4</td>
+                <td class="task-name">Real Testimonials</td>
+                <td>Replace the 3 example quotes on the homepage with actual client testimonials (including name, organization, and role).</td>
+            </tr>
+            <tr>
+                <td class="task-id">1.5</td>
+                <td class="task-name">Partner / Client Logos</td>
+                <td>Replace placeholder text in the partners strip with actual organization logos (PNG or SVG, consistent sizing).</td>
+            </tr>
+            <tr>
+                <td class="task-id">1.6</td>
+                <td class="task-name">Resources Section</td>
+                <td>Publish at least 2–3 real items: a learning brief, a policy brief, and/or a framework document to populate the Resources page.</td>
+            </tr>
+            <tr>
+                <td class="task-id">1.7</td>
+                <td class="task-name">Social Media Profiles</td>
+                <td>Create LinkedIn company page and Twitter/X account. Update all footer links across every page (currently pointing to #).</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- ==================== PHASE 2 ==================== -->
+    <h2><span class="phase-label">Phase 2</span> Technical Infrastructure</h2>
+    <p>Set up the backend systems needed to run the site professionally.</p>
+
+    <table class="no-break">
+        <thead><tr><th>#</th><th>Task</th><th>Details</th></tr></thead>
+        <tbody>
+            <tr>
+                <td class="task-id">2.1</td>
+                <td class="task-name">Custom Domain</td>
+                <td>Purchase <code>angavumetrics.com</code> (or <code>.co.ke</code>) and configure DNS records.</td>
+            </tr>
+            <tr>
+                <td class="task-id">2.2</td>
+                <td class="task-name">SSL Certificate</td>
+                <td>Ensure HTTPS is active. Free via GitHub Pages, Netlify, or Cloudflare.</td>
+            </tr>
+            <tr>
+                <td class="task-id">2.3</td>
+                <td class="task-name">Hosting Setup</td>
+                <td>Deploy to GitHub Pages (from <code>website/</code> folder) or Netlify. Create <code>.github/workflows/deploy.yml</code> for automated deployments.</td>
+            </tr>
+            <tr>
+                <td class="task-id">2.4</td>
+                <td class="task-name">Email Setup</td>
+                <td>Configure <code>info@angavumetrics.com</code> and <code>tors@angavumetrics.com</code> via Google Workspace, Zoho, or similar provider.</td>
+            </tr>
+            <tr>
+                <td class="task-id">2.5</td>
+                <td class="task-name">Formspree Verification</td>
+                <td>Verify the contact form endpoint (<code>xpwdjgvb</code>) works on the production domain. Consider upgrading to remove Formspree branding.</td>
+            </tr>
+            <tr>
+                <td class="task-id">2.6</td>
+                <td class="task-name">Newsletter Backend</td>
+                <td>Connect the newsletter signup form to Mailchimp, Brevo (Sendinblue), or ConvertKit.</td>
+            </tr>
+            <tr>
+                <td class="task-id">2.7</td>
+                <td class="task-name">Google Analytics</td>
+                <td>Verify GTM container <code>GTM-WBJGB5GM</code> is active and all tags are firing correctly on the production domain.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- ==================== PHASE 3 ==================== -->
+    <div class="page-break"></div>
+
+    <h2><span class="phase-label">Phase 3</span> SEO &amp; Discoverability</h2>
+    <p>Ensure search engines can find, index, and properly display your site.</p>
+
+    <table class="no-break">
+        <thead><tr><th>#</th><th>Task</th><th>Details</th></tr></thead>
+        <tbody>
+            <tr>
+                <td class="task-id">3.1</td>
+                <td class="task-name">Create robots.txt</td>
+                <td>Allow all crawlers, point to sitemap location. Place in the root of the <code>website/</code> folder.</td>
+            </tr>
+            <tr>
+                <td class="task-id">3.2</td>
+                <td class="task-name">Create sitemap.xml</td>
+                <td>List all public pages with priority weights and last-modified dates.</td>
+            </tr>
+            <tr>
+                <td class="task-id">3.3</td>
+                <td class="task-name">Create 404.html</td>
+                <td>Custom "Page Not Found" error page matching the Angavu brand and providing navigation back to key pages.</td>
+            </tr>
+            <tr>
+                <td class="task-id">3.4</td>
+                <td class="task-name">Favicon &amp; App Icons</td>
+                <td>Add <code>favicon.ico</code>, <code>apple-touch-icon</code>, and Open Graph share image from the final logo.</td>
+            </tr>
+            <tr>
+                <td class="task-id">3.5</td>
+                <td class="task-name">Google Search Console</td>
+                <td>Register site, verify ownership via DNS or meta tag, and submit <code>sitemap.xml</code>.</td>
+            </tr>
+            <tr>
+                <td class="task-id">3.6</td>
+                <td class="task-name">Google Business Profile</td>
+                <td>Register "Angavu Metrics" with Nairobi address for local search visibility in Kenya.</td>
+            </tr>
+            <tr>
+                <td class="task-id">3.7</td>
+                <td class="task-name">Verify Structured Data</td>
+                <td>Run Google's Rich Results Test on the JSON-LD schema already embedded in <code>index.html</code>. Fix any warnings.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- ==================== PHASE 4 ==================== -->
+    <h2><span class="phase-label">Phase 4</span> Quality Assurance &amp; Testing</h2>
+    <p>Comprehensive testing before going public.</p>
+
+    <table class="no-break">
+        <thead><tr><th>#</th><th>Task</th><th>Details</th></tr></thead>
+        <tbody>
+            <tr>
+                <td class="task-id">4.1</td>
+                <td class="task-name">Cross-Browser Testing</td>
+                <td>Test on Chrome, Firefox, Safari, and Edge — both desktop and mobile versions.</td>
+            </tr>
+            <tr>
+                <td class="task-id">4.2</td>
+                <td class="task-name">Real Device Testing</td>
+                <td>Test on actual Android and iOS devices (not just browser responsive mode).</td>
+            </tr>
+            <tr>
+                <td class="task-id">4.3</td>
+                <td class="task-name">Lighthouse Audit</td>
+                <td>Run Google Lighthouse. Target 90+ scores on Performance, Accessibility, SEO, and Best Practices.</td>
+            </tr>
+            <tr>
+                <td class="task-id">4.4</td>
+                <td class="task-name">Broken Link Check</td>
+                <td>Scan all pages for broken links, missing images, and dead <code>#</code> anchor references.</td>
+            </tr>
+            <tr>
+                <td class="task-id">4.5</td>
+                <td class="task-name">Form Testing</td>
+                <td>Submit test entries through the contact form and TOR email. Confirm delivery to the correct inboxes.</td>
+            </tr>
+            <tr>
+                <td class="task-id">4.6</td>
+                <td class="task-name">Content Proofread</td>
+                <td>Final grammar, spelling, and factual accuracy review across all pages.</td>
+            </tr>
+            <tr>
+                <td class="task-id">4.7</td>
+                <td class="task-name">Accessibility Audit</td>
+                <td>Run axe DevTools or WAVE. Fix any remaining WCAG 2.1 Level AA issues.</td>
+            </tr>
+            <tr>
+                <td class="task-id">4.8</td>
+                <td class="task-name">Load Testing</td>
+                <td>Basic load test to ensure hosting can handle traffic spikes after launch announcements.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- ==================== PHASE 5 ==================== -->
+    <div class="page-break"></div>
+
+    <h2><span class="phase-label">Phase 5</span> Pre-Launch Preparation</h2>
+    <p>Final checks before flipping the switch.</p>
+
+    <table class="no-break">
+        <thead><tr><th>#</th><th>Task</th><th>Details</th></tr></thead>
+        <tbody>
+            <tr>
+                <td class="task-id">5.1</td>
+                <td class="task-name">Legal Review</td>
+                <td>Have the Privacy Policy and Terms of Use reviewed by a legal advisor for compliance with the Kenya Data Protection Act (2019).</td>
+            </tr>
+            <tr>
+                <td class="task-id">5.2</td>
+                <td class="task-name">Version Control Backup</td>
+                <td>Ensure all code is committed and pushed to the GitHub <code>main</code> branch. Tag the release (e.g., <code>v1.0.0</code>).</td>
+            </tr>
+            <tr>
+                <td class="task-id">5.3</td>
+                <td class="task-name">Uptime Monitoring</td>
+                <td>Set up UptimeRobot (or similar) for downtime alerts via email/SMS.</td>
+            </tr>
+            <tr>
+                <td class="task-id">5.4</td>
+                <td class="task-name">Error Tracking</td>
+                <td>Consider adding Sentry (free tier) for JavaScript error monitoring in production.</td>
+            </tr>
+            <tr>
+                <td class="task-id">5.5</td>
+                <td class="task-name">Create .gitignore</td>
+                <td>Add standard ignores: <code>.DS_Store</code>, <code>node_modules/</code>, <code>*.log</code>, IDE files, etc.</td>
+            </tr>
+            <tr>
+                <td class="task-id">5.6</td>
+                <td class="task-name">Staging Review</td>
+                <td>Share the staging URL with 3–5 trusted colleagues or partners for feedback. Collect and address their input.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- ==================== PHASE 6 ==================== -->
+    <h2><span class="phase-label">Phase 6</span> Launch Day 🚀</h2>
+    <p>Go live and announce to the world.</p>
+
+    <table class="no-break">
+        <thead><tr><th>#</th><th>Task</th><th>Details</th></tr></thead>
+        <tbody>
+            <tr>
+                <td class="task-id">6.1</td>
+                <td class="task-name">Point DNS to Production</td>
+                <td>Switch the domain from parking/staging to the live hosting provider.</td>
+            </tr>
+            <tr>
+                <td class="task-id">6.2</td>
+                <td class="task-name">Verify HTTPS</td>
+                <td>Confirm SSL certificate is working correctly on all pages and subpages.</td>
+            </tr>
+            <tr>
+                <td class="task-id">6.3</td>
+                <td class="task-name">Submit Sitemap</td>
+                <td>Push <code>sitemap.xml</code> to Google Search Console to trigger indexing.</td>
+            </tr>
+            <tr>
+                <td class="task-id">6.4</td>
+                <td class="task-name">LinkedIn Announcement</td>
+                <td>Publish a launch post on the Angavu Metrics LinkedIn company page with a compelling message.</td>
+            </tr>
+            <tr>
+                <td class="task-id">6.5</td>
+                <td class="task-name">Twitter/X Announcement</td>
+                <td>Launch tweet with the tagline "Clarity. Evidence. Impact." and a link to the website.</td>
+            </tr>
+            <tr>
+                <td class="task-id">6.6</td>
+                <td class="task-name">Email Signatures</td>
+                <td>Add <code>angavumetrics.com</code> to all team members' email signatures.</td>
+            </tr>
+            <tr>
+                <td class="task-id">6.7</td>
+                <td class="task-name">Network Outreach</td>
+                <td>Email key contacts, existing partners, and University of Nairobi collaborators with the launch announcement.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- ==================== PHASE 7 ==================== -->
+    <div class="page-break"></div>
+
+    <h2><span class="phase-label">Phase 7</span> Post-Launch Growth <em>(Ongoing)</em></h2>
+    <p>Continuous improvement and content marketing after going live.</p>
+
+    <table class="no-break">
+        <thead><tr><th>#</th><th>Task</th><th>Cadence</th></tr></thead>
+        <tbody>
+            <tr>
+                <td class="task-id">7.1</td>
+                <td class="task-name">Blog / Insights Section</td>
+                <td>Build the blog page. Publish 1–2 thought leadership articles per month on M&amp;E topics, policy analysis, or sector trends.</td>
+            </tr>
+            <tr>
+                <td class="task-id">7.2</td>
+                <td class="task-name">New Case Studies</td>
+                <td>Add new case studies as projects are completed. Target 2–3 new entries per quarter.</td>
+            </tr>
+            <tr>
+                <td class="task-id">7.3</td>
+                <td class="task-name">SEO Monitoring</td>
+                <td>Monthly — Track keyword rankings for terms like "M&amp;E consultancy Kenya", "impact evaluation East Africa", "MEAL systems".</td>
+            </tr>
+            <tr>
+                <td class="task-id">7.4</td>
+                <td class="task-name">Analytics Review</td>
+                <td>Monthly — Review traffic sources, top pages, bounce rates, and form submission conversion rates.</td>
+            </tr>
+            <tr>
+                <td class="task-id">7.5</td>
+                <td class="task-name">Content Freshness</td>
+                <td>Quarterly — Keep the Resources section updated with new briefs, tools, and frameworks.</td>
+            </tr>
+            <tr>
+                <td class="task-id">7.6</td>
+                <td class="task-name">Client Portal</td>
+                <td>Future — Consider a password-protected area for sharing client deliverables and project dashboards.</td>
+            </tr>
+            <tr>
+                <td class="task-id">7.7</td>
+                <td class="task-name">Multi-Language Support</td>
+                <td>Future — Consider Swahili or French versions for broader regional reach in East Africa.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- ==================== TIMELINE ==================== -->
+    <h2>Recommended Timeline</h2>
+
+    <div class="timeline">
+        <h3>6-Week Sprint to Launch</h3>
+        <div class="timeline-row">
+            <span class="timeline-week">Week 1–2</span>
+            <span class="timeline-desc"><strong>Phase 1</strong> — Content completion (team bios, case studies, testimonials, logo finalization). This is the #1 blocker.</span>
+        </div>
+        <div class="timeline-row">
+            <span class="timeline-week">Week 3</span>
+            <span class="timeline-desc"><strong>Phase 2</strong> — Technical infrastructure (domain purchase, hosting setup, email configuration).</span>
+        </div>
+        <div class="timeline-row">
+            <span class="timeline-week">Week 4</span>
+            <span class="timeline-desc"><strong>Phase 3 + 4</strong> — SEO setup and QA testing (run in parallel).</span>
+        </div>
+        <div class="timeline-row">
+            <span class="timeline-week">Week 5</span>
+            <span class="timeline-desc"><strong>Phase 5</strong> — Pre-launch preparation, staging review with trusted colleagues, final fixes.</span>
+        </div>
+        <div class="timeline-row">
+            <span class="timeline-week">Week 6</span>
+            <span class="timeline-desc"><strong>Phase 6</strong> — GO LIVE! DNS switch, announcements, outreach.</span>
+        </div>
+        <div class="timeline-row">
+            <span class="timeline-week">Ongoing</span>
+            <span class="timeline-desc"><strong>Phase 7</strong> — Post-launch growth, blog, case studies, SEO monitoring.</span>
+        </div>
+    </div>
+
+    <!-- ==================== BOTTOM LINE ==================== -->
+    <div class="bottom-line">
+        <h3>Bottom Line</h3>
+        <p>
+            Your website's technical foundation is strong. The critical path to launch is <strong>real content</strong> 
+            (team bios, case studies, testimonials, finalized logo) and <strong>infrastructure</strong> (domain + hosting + email). 
+            Once those are in place, you're days away from going public.
+        </p>
+        <p style="margin-top: 0.8rem; color: var(--gold); font-weight: 600;">
+            Total tasks: 42 &nbsp;|&nbsp; Phases: 7 &nbsp;|&nbsp; Target launch: ~6 weeks from start
+        </p>
+    </div>
+
+    <!-- ==================== FOOTER ==================== -->
+    <div class="doc-footer">
+        <p><strong>Angavu Metrics</strong> — Clarity. Evidence. Impact.</p>
+        <p>Website Launch Roadmap v1.0 &nbsp;|&nbsp; April 4, 2026 &nbsp;|&nbsp; Internal Reference Document</p>
+    </div>
+
+</div>
+
+</body>
+</html>
