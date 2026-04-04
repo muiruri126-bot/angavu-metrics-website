@@ -5,31 +5,25 @@ Professional website and brand materials for Angavu Metrics, a consultancy speci
 ## Structure
 
 ```
-website/       → Static website (HTML/CSS/JS) — deploy this folder
+docs/          → Static website (HTML/CSS/JS) — deployed via GitHub Pages
 brand/         → Brand strategy documents (Markdown)
 templates/     → Branded proposal and report templates (HTML)
 ```
 
 ## Deployment (GitHub Pages)
 
-This site is configured for **GitHub Pages** deployment from the `website/` folder.
+This site is configured for **GitHub Pages** deployment from the `docs/` folder on the `main` branch.
 
-### Option A: GitHub Actions (Recommended)
+1. Go to **Settings → Pages**
+2. Under **Source**, select **Deploy from a branch**
+3. Set branch to **main** and folder to **/docs**
+4. Click **Save**
 
-1. Push this repo to GitHub
-2. Go to **Settings → Pages → Source → GitHub Actions**
-3. The workflow at `.github/workflows/deploy.yml` will automatically deploy the `website/` folder
+Every push to `main` will automatically update the live site.
 
-### Option B: Manual (gh-pages branch)
+### Alternative: Netlify / Vercel
 
-```bash
-git subtree push --prefix website origin gh-pages
-```
-Then set GitHub Pages source to the `gh-pages` branch.
-
-### Option C: Netlify / Vercel
-
-Set the **publish directory** to `website/` and deploy.
+Set the **publish directory** to `docs/` and deploy.
 
 ## Brand Palette
 
