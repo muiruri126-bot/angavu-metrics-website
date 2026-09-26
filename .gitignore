@@ -15,3 +15,6 @@ desktop.ini
 # Build
 dist/
 .cache/
+
+# Local Netlify folder
+.netlify
